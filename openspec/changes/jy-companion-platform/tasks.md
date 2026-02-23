@@ -113,14 +113,14 @@
 
 ### 9. Sprint 9 — 人格化对话系统 + 数字形象 (第17-18周)
 
-- [ ] 9.1 实现人设配置系统 `persona/persona_manager.py`（≥20 维度参数管理）
-- [ ] 9.2 实现风格化文本生成控制 `persona/style_controller.py`（人设参数实时注入 Prompt）
-- [ ] 9.3 实现人设记忆图谱 `persona/memory_graph.py`（跨会话一致性维护）
-- [ ] 9.4 实现学伴社区群管理 API（多角色绑定/切换，≥5 个学伴）
+- [x] 9.1 实现人设配置系统 `persona/persona_manager.py`（≥20 维度参数管理）
+- [x] 9.2 实现风格化文本生成控制 `persona/style_controller.py`（人设参数实时注入 Prompt）
+- [x] 9.3 实现人设记忆图谱 `persona/memory_graph.py`（跨会话一致性维护）
+- [x] 9.4 实现学伴社区群管理 API（多角色绑定/切换，≥5 个学伴）
 - [ ] 9.5 设计 2-3 个预设学伴数字形象（Rive 动画资源）
 - [ ] 9.6 Flutter 数字形象渲染器 `features/avatar/avatar_renderer.dart`（Rive 集成）
 - [ ] 9.7 实现情感-动画映射驱动 `features/avatar/emotion_animator.dart`
-- [ ] 9.8 人格一致性测试：跨 10 轮对话一致率 ≥90%
+- [x] 9.8 人格一致性测试：跨 10 轮对话一致率 ≥90%
 
 ### 10. Sprint 10 — 多模态交互完善 + 情感表达 (第19-20周)
 

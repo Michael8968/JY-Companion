@@ -17,6 +17,7 @@ from app.models.classroom import ClassroomSession, ClassroomDoubt, StudyPlan, Us
 from app.models.emotion import EmotionRecord, CrisisAlert, GratitudeEntry  # noqa: F401
 from app.models.health import ScreenTimeRecord, HealthReminder, ExercisePlan  # noqa: F401
 from app.models.career import Goal, LearningPath, ProgressReport  # noqa: F401
+from app.models.persona import Persona, UserPersonaBinding, PersonaMemoryEntry  # noqa: F401
 
 config = context.config
 
