@@ -95,15 +95,15 @@
 
 ### 8. Sprint 8 — 健康守护 + 创意创作 + 生涯规划 (第15-16周)
 
-- [ ] 8.1 实现 `agents/health_agent.py` 久坐/用眼监测 + 40分钟强制提醒
-- [ ] 8.2 实现健康提醒推送（Celery 定时任务 + 推送通知）
-- [ ] 8.3 实现 `agents/creative_agent.py` AIGC 文本 + 图像生成
-- [ ] 8.4 实现 `agents/career_agent.py` SMART 目标管理 + 学习路径推荐
+- [x] 8.1 实现 `agents/health_agent.py` 久坐/用眼监测 + 40分钟强制提醒
+- [x] 8.2 实现健康提醒推送（Celery 定时任务 + 推送通知）
+- [x] 8.3 实现 `agents/creative_agent.py` AIGC 文本 + 图像生成
+- [x] 8.4 实现 `agents/career_agent.py` SMART 目标管理 + 学习路径推荐
 - [ ] 8.5 Flutter 健康守护页面：屏幕时间统计、运动计划、提醒配置
 - [ ] 8.6 Flutter 创意创作页面：创意生成、作品评价、作品库
 - [ ] 8.7 Flutter 生涯规划页面：目标管理、甘特图、进度报告
-- [ ] 8.8 部署 CosyVoice TTS 语音合成服务
-- [ ] 8.9 六大智能体全集成测试
+- [x] 8.8 部署 CosyVoice TTS 语音合成服务
+- [x] 8.9 六大智能体全集成测试
 
 #### Phase 2 Milestone: 六大智能体全部可用，智能中枢完整链路打通，危机预警验证通过
 
