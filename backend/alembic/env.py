@@ -12,6 +12,7 @@ from app.config.settings import get_settings
 # Import all models so they are registered with Base.metadata
 from app.models.user import User, UserProfile  # noqa: F401
 from app.models.conversation import Conversation, Message  # noqa: F401
+from app.models.learning import LearningRecord, ErrorRecord  # noqa: F401
 
 config = context.config
 

@@ -59,15 +59,15 @@
 
 ### 5. Sprint 5 — 学业辅导智能体 (第9-10周)
 
-- [ ] 5.1 实现 `agents/academic_agent.py` 多学科答疑引擎
-- [ ] 5.2 设计 CoT 解题路径 Prompt 模板 `prompt_templates/academic.py`
-- [ ] 5.3 实现错因诊断分析逻辑 `services/academic_service.py`
-- [ ] 5.4 实现举一反三练习推荐（动态题库筛选 + 难度自适应）
-- [ ] 5.5 部署 PaddleOCR 服务 `ai_services/multimodal/ocr_service.py`
+- [x] 5.1 实现 `agents/academic_agent.py` 多学科答疑引擎
+- [x] 5.2 设计 CoT 解题路径 Prompt 模板 `prompt_templates/academic.py`
+- [x] 5.3 实现错因诊断分析逻辑 `services/academic_service.py`
+- [x] 5.4 实现举一反三练习推荐（动态题库筛选 + 难度自适应）
+- [x] 5.5 部署 PaddleOCR 服务 `ai_services/multimodal/ocr_service.py`
 - [ ] 5.6 Flutter 学业辅导页面：题目输入(文本+拍照OCR)、分步解答、错题本
-- [ ] 5.7 实现 LearningRecord / ErrorRecord 数据模型 + CRUD API
+- [x] 5.7 实现 LearningRecord / ErrorRecord 数据模型 + CRUD API
 - [ ] 5.8 扩充知识库（语文、英语学科）
-- [ ] 5.9 学业辅导模块单元测试 + 集成测试（覆盖率 ≥80%）
+- [x] 5.9 学业辅导模块单元测试 + 集成测试（覆盖率 ≥80%）
 
 ### 6. Sprint 6 — 课堂复盘智能体 + ASR (第11-12周)
 
