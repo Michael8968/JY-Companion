@@ -3,11 +3,14 @@ from contextlib import asynccontextmanager
 
 import structlog
 from fastapi import FastAPI
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 from app.api.v1.router import router as v1_router
 from app.config.logging_config import setup_logging
 from app.config.settings import get_settings
 from app.core.middleware import setup_middleware
+from app.core.rate_limiter import limiter
 
 settings = get_settings()
 logger = structlog.get_logger()
@@ -29,6 +32,9 @@ app = FastAPI(
     redoc_url="/redoc" if settings.debug else None,
     lifespan=lifespan,
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 setup_middleware(app)
 app.include_router(v1_router, prefix=settings.api_v1_prefix)

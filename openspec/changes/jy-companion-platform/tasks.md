@@ -15,13 +15,13 @@
 
 ### 2. Sprint 2 — 认证系统与核心数据模型 (第3-4周)
 
-- [ ] 2.1 实现 User / Role / Session 数据库模型 + Alembic 迁移脚本
-- [ ] 2.2 实现 OAuth2 + JWT 认证 API (`POST /api/v1/auth/login`, `/register`, `/refresh`)
-- [ ] 2.3 实现 RBAC 权限中间件（student / teacher / parent / admin 四角色）
-- [ ] 2.4 实现 API 限流中间件（slowapi: 100/min学生, 500/min教师）
+- [x] 2.1 实现 User / Role / Session 数据库模型 + Alembic 迁移脚本
+- [x] 2.2 实现 OAuth2 + JWT 认证 API (`POST /api/v1/auth/login`, `/register`, `/refresh`)
+- [x] 2.3 实现 RBAC 权限中间件（student / teacher / parent / admin 四角色）
+- [x] 2.4 实现 API 限流中间件（slowapi: 100/min学生, 500/min教师）
 - [ ] 2.5 Flutter 登录/注册 UI + Auth BLoC 状态管理
 - [ ] 2.6 Flutter 网络层封装（dio 拦截器、JWT 自动刷新、错误处理）
-- [ ] 2.7 实现 Conversation / Message 数据库模型
+- [x] 2.7 实现 Conversation / Message 数据库模型
 - [ ] 2.8 InnoSpark 1.0 模型加载测试、推理基准性能报告
 - [ ] 2.9 教育语料收集与整理（高中各学科）
 
