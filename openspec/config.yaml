@@ -1,7 +1,7 @@
 schema: spec-driven
 
 context: |
-  Project: 晋元中学 AI 智能学伴平台 (Jinyuan High School AI Intelligent Learning Companion)
+  Project: 星澜中学 AI 智能学伴平台 (Jinyuan High School AI Intelligent Learning Companion)
   Tech stack: Flutter 3.24+ (frontend), Python FastAPI (backend), vLLM (LLM inference)
   Databases: PostgreSQL 16+, Milvus 2.4+ (vector), Neo4j 5.x (knowledge graph), Redis 7.4+, MongoDB 7.0+
   AI Foundation: 华东师范大学「启创·InnoSpark 1.0」教育大模型
@@ -16,7 +16,7 @@ context: |
 
 rules:
   proposal:
-    - Reference the product spec at docs/晋元中学ai智能学伴平台 产品说明书.md
+    - Reference the product spec at docs/星澜中学ai智能学伴平台 产品说明书.md
     - Include all 6 intelligent agents in capabilities
   specs:
     - Use WHEN/THEN/AND format for testable scenarios

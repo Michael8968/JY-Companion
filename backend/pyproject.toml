@@ -1,7 +1,7 @@
 [project]
 name = "jy-companion-backend"
 version = "0.1.0"
-description = "晋元中学 AI 智能学伴平台 - 后端服务"
+description = "星澜中学 AI 智能学伴平台 - 后端服务"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

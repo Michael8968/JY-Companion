@@ -6,7 +6,8 @@
       "Bash(flutter --version:*)",
       "Bash(uv:*)",
       "Bash(docker --version:*)",
-      "mcp__plugin_claude-mem_mcp-search__save_memory"
+      "mcp__plugin_claude-mem_mcp-search__save_memory",
+      "Bash(ls:*)"
     ]
   }
 }

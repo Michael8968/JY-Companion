@@ -27,7 +27,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
-    description="晋元中学 AI 智能学伴平台 API",
+    description="星澜中学 AI 智能学伴平台 API",
     docs_url="/docs" if settings.debug else None,
     redoc_url="/redoc" if settings.debug else None,
     lifespan=lifespan,
