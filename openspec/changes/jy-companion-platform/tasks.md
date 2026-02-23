@@ -29,14 +29,14 @@
 
 ### 3. Sprint 3 — 核心对话框架与 LLM 接入 (第5-6周)
 
-- [ ] 3.1 实现 WebSocket 实时对话接口 `WS /api/v1/chat/ws`
-- [ ] 3.2 实现 ChatService：上下文管理、历史消息加载、流式输出
-- [ ] 3.3 部署 vLLM 推理服务，封装 LLM API 调用层
-- [ ] 3.4 设计基础 Prompt 模板框架（System Prompt + 人设注入占位）
+- [x] 3.1 实现 WebSocket 实时对话接口 `WS /api/v1/chat/ws`
+- [x] 3.2 实现 ChatService：上下文管理、历史消息加载、流式输出
+- [x] 3.3 部署 vLLM 推理服务，封装 LLM API 调用层
+- [x] 3.4 设计基础 Prompt 模板框架（System Prompt + 人设注入占位）
 - [ ] 3.5 Flutter 对话 UI：聊天气泡、流式文本渲染(StreamBuilder)、消息列表
 - [ ] 3.6 Flutter WebSocket 客户端 + 消息 BLoC 状态管理
-- [ ] 3.7 实现内容安全过滤基础版（关键词库 + 基础分类器）
-- [ ] 3.8 搭建 pytest 测试框架（conftest.py、fixtures、test DB）
+- [x] 3.7 实现内容安全过滤基础版（关键词库 + 基础分类器）
+- [x] 3.8 搭建 pytest 测试框架（conftest.py、fixtures、test DB）
 
 #### Milestone: 用户可在 App 与 LLM 流式对话，内容安全过滤生效
 
