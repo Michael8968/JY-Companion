@@ -31,6 +31,10 @@ dependencies = [
     "structlog>=24.4.0",
     # Monitoring
     "prometheus-fastapi-instrumentator>=7.0.0",
+    # Vector DB
+    "pymilvus>=2.4.0",
+    # Graph DB
+    "neo4j>=5.25.0",
     # Utilities
     "python-multipart>=0.0.12",
     "orjson>=3.10.0",

@@ -1,16 +1,25 @@
-"""ChatService — context management, history loading, streaming generation."""
+"""ChatService — context management, history loading, streaming generation.
+
+Integrates the intelligent hub: intent classification → agent routing → RAG → response.
+"""
 
 import uuid
+from collections.abc import AsyncGenerator
 from datetime import UTC, datetime
 
 import structlog
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.agents.base_agent import AgentContext
+from app.hub.agent_registry import get_agent_registry
+from app.hub.intent_classifier import IntentClassifier
+from app.hub.orchestrator import Orchestrator
 from app.models.conversation import AgentType, ContentType, Conversation, Message, MessageRole
 from app.services.content_safety import ContentSafetyFilter, ContentSafetyLevel
 from app.services.llm_client import LLMClient
 from app.services.prompt_manager import PromptManager
+from app.services.rag_pipeline import RAGPipeline
 
 logger = structlog.get_logger()
 
@@ -24,6 +33,9 @@ class ChatService:
         self.llm = LLMClient()
         self.prompt_manager = PromptManager()
         self.safety_filter = ContentSafetyFilter()
+        self.intent_classifier = IntentClassifier()
+        self.rag = RAGPipeline()
+        self.orchestrator = Orchestrator(get_agent_registry())
 
     # ---- Conversation CRUD ----
 
@@ -102,7 +114,6 @@ class ChatService:
             .limit(MAX_CONTEXT_MESSAGES)
         )
         rows = (await self.db.execute(q)).scalars().all()
-        # Reverse so oldest first
         rows = list(reversed(rows))
         return [{"role": msg.role.value, "content": msg.content} for msg in rows]
 
@@ -116,6 +127,8 @@ class ChatService:
         content_type: ContentType = ContentType.TEXT,
         token_count: int | None = None,
         is_flagged: bool = False,
+        intent_label: str | None = None,
+        intent_confidence: float | None = None,
     ) -> Message:
         msg = Message(
             conversation_id=conv_id,
@@ -124,6 +137,8 @@ class ChatService:
             content=content,
             token_count=token_count,
             is_flagged=is_flagged,
+            intent_label=intent_label,
+            intent_confidence=intent_confidence,
         )
         self.db.add(msg)
 
@@ -137,7 +152,7 @@ class ChatService:
         await self.db.flush()
         return msg
 
-    # ---- Core chat flow ----
+    # ---- Core chat flow (with intelligent hub) ----
 
     async def process_message(
         self,
@@ -146,7 +161,7 @@ class ChatService:
         content: str,
         content_type: ContentType = ContentType.TEXT,
     ) -> dict:
-        """Non-streaming message processing. Returns full response."""
+        """Non-streaming message processing with intent → route → agent → RAG."""
         conv = await self.get_conversation(conv_id, user_id)
         if not conv:
             return {"error": "Conversation not found"}
@@ -162,37 +177,66 @@ class ChatService:
         if safety_result.level == ContentSafetyLevel.BLOCKED:
             return {"type": "blocked", "message": "抱歉，你的消息包含不适当的内容，请修改后重试。"}
 
-        # 2. Save user message
-        await self._save_message(conv_id, MessageRole.USER, content, content_type)
+        # 2. Intent classification
+        intent = self.intent_classifier.classify(content)
 
-        # 3. Build LLM context
-        history = await self._load_context_messages(conv_id)
-        messages = self.prompt_manager.build_messages(conv.agent_type, history, content)
+        # 3. Save user message with intent metadata
+        await self._save_message(
+            conv_id, MessageRole.USER, content, content_type,
+            intent_label=intent.intent_label, intent_confidence=intent.confidence,
+        )
 
-        # 4. LLM generation
+        # 4. RAG retrieval (best-effort, non-blocking on failure)
+        rag_context = ""
         try:
-            result = self.llm.generate(messages)
-            llm_response = await result
+            rag_context = await self.rag.retrieve(content)
         except Exception:
-            await logger.aexception("llm.generate_failed", conv_id=str(conv_id))
-            return {"type": "error", "message": "AI 服务暂时不可用，请稍后重试。"}
+            await logger.awarning("chat.rag_retrieval_failed", conv_id=str(conv_id))
 
-        assistant_content = llm_response["content"]
+        # 5. Build agent context and route through orchestrator
+        history = await self._load_context_messages(conv_id)
+        agent_context = AgentContext(
+            user_id=str(user_id),
+            conversation_id=str(conv_id),
+            agent_type=conv.agent_type,
+            user_input=content,
+            history=history,
+            rag_context=rag_context or None,
+        )
 
-        # 5. Output safety check
+        registry = get_agent_registry()
+        agent = registry.get_agent(intent.agent_type or conv.agent_type)
+
+        if agent:
+            # Route through orchestrator
+            result = await self.orchestrator.process(agent_context)
+            assistant_content = result.aggregated_content
+        else:
+            # Fallback: direct LLM call
+            user_input_with_rag = content
+            if rag_context:
+                user_input_with_rag = f"{rag_context}\n\n用户问题: {content}"
+            messages = self.prompt_manager.build_messages(conv.agent_type, history, user_input_with_rag)
+            try:
+                llm_response = await self.llm.generate(messages)
+                assistant_content = llm_response["content"]
+            except Exception:
+                await logger.aexception("llm.generate_failed", conv_id=str(conv_id))
+                return {"type": "error", "message": "AI 服务暂时不可用，请稍后重试。"}
+
+        # 6. Output safety check
         output_safety = self.safety_filter.check_output(assistant_content)
         if not output_safety.is_safe:
             assistant_content = "抱歉，我无法生成合适的回答，请换个话题吧。"
 
-        # 6. Save assistant message
-        usage = llm_response.get("usage", {})
-        token_count = usage.get("completion_tokens")
-        await self._save_message(conv_id, MessageRole.ASSISTANT, assistant_content, token_count=token_count)
+        # 7. Save assistant message
+        await self._save_message(conv_id, MessageRole.ASSISTANT, assistant_content)
 
         return {
             "type": "message",
             "content": assistant_content,
-            "usage": usage,
+            "intent": intent.intent_label,
+            "intent_confidence": intent.confidence,
         }
 
     async def process_message_stream(
@@ -201,8 +245,8 @@ class ChatService:
         user_id: uuid.UUID,
         content: str,
         content_type: ContentType = ContentType.TEXT,
-    ):
-        """Streaming message processing. Yields (event_type, data) tuples."""
+    ) -> AsyncGenerator[tuple[str, dict], None]:
+        """Streaming message processing with intent → RAG → LLM stream."""
         conv = await self.get_conversation(conv_id, user_id)
         if not conv:
             yield "error", {"message": "Conversation not found"}
@@ -220,17 +264,33 @@ class ChatService:
             yield "blocked", {"message": "抱歉，你的消息包含不适当的内容，请修改后重试。"}
             return
 
-        # 2. Save user message
-        await self._save_message(conv_id, MessageRole.USER, content, content_type)
+        # 2. Intent classification
+        intent = self.intent_classifier.classify(content)
 
-        # 3. Build LLM context
+        # 3. Save user message
+        await self._save_message(
+            conv_id, MessageRole.USER, content, content_type,
+            intent_label=intent.intent_label, intent_confidence=intent.confidence,
+        )
+
+        # 4. RAG retrieval (best-effort)
+        rag_context = ""
+        try:
+            rag_context = await self.rag.retrieve(content)
+        except Exception:
+            await logger.awarning("chat.rag_retrieval_failed", conv_id=str(conv_id))
+
+        # 5. Build LLM context with RAG
         history = await self._load_context_messages(conv_id)
-        messages = self.prompt_manager.build_messages(conv.agent_type, history, content)
+        user_input_with_rag = content
+        if rag_context:
+            user_input_with_rag = f"{rag_context}\n\n用户问题: {content}"
+        messages = self.prompt_manager.build_messages(conv.agent_type, history, user_input_with_rag)
 
-        # 4. Stream LLM response
-        yield "stream_start", {}
+        # 6. Stream LLM response
+        yield "stream_start", {"intent": intent.intent_label, "confidence": intent.confidence}
 
-        full_response = []
+        full_response: list[str] = []
         try:
             async for chunk in self.llm.generate_stream(messages):
                 full_response.append(chunk)
@@ -242,12 +302,12 @@ class ChatService:
 
         assistant_content = "".join(full_response)
 
-        # 5. Output safety check
+        # 7. Output safety check
         output_safety = self.safety_filter.check_output(assistant_content)
         if not output_safety.is_safe:
             assistant_content = "抱歉，我无法生成合适的回答，请换个话题吧。"
 
-        # 6. Save assistant message
+        # 8. Save assistant message
         await self._save_message(conv_id, MessageRole.ASSISTANT, assistant_content)
 
         yield "stream_end", {"token_count": len(assistant_content)}

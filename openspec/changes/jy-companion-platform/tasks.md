@@ -42,14 +42,14 @@
 
 ### 4. Sprint 4 — 智能中枢层 + RAG 基础 (第7-8周)
 
-- [ ] 4.1 实现意图识别分类器 `hub/intent_classifier.py`（NLU 服务）
-- [ ] 4.2 实现智能体能力注册表 `hub/agent_registry.py` + 路由分发逻辑
-- [ ] 4.3 实现 DAG 任务编排器基础版 `hub/orchestrator.py`
-- [ ] 4.4 部署向量嵌入服务（BGE-large-zh），集成 Milvus SDK
-- [ ] 4.5 实现 RAG 管线：文档分块 → 向量嵌入 → Milvus 检索 → 重排序
+- [x] 4.1 实现意图识别分类器 `hub/intent_classifier.py`（NLU 服务）
+- [x] 4.2 实现智能体能力注册表 `hub/agent_registry.py` + 路由分发逻辑
+- [x] 4.3 实现 DAG 任务编排器基础版 `hub/orchestrator.py`
+- [x] 4.4 部署向量嵌入服务（BGE-large-zh），集成 Milvus SDK
+- [x] 4.5 实现 RAG 管线：文档分块 → 向量嵌入 → Milvus 检索 → 重排序
 - [ ] 4.6 导入高中核心学科知识库到 Milvus（数学、物理、化学）
-- [ ] 4.7 构建 Neo4j 知识图谱基础 Schema，导入学科知识点实体关系
-- [ ] 4.8 重构对话接口：意图识别 → 路由 → 智能体 → RAG 增强 → 流式返回
+- [x] 4.7 构建 Neo4j 知识图谱基础 Schema，导入学科知识点实体关系
+- [x] 4.8 重构对话接口：意图识别 → 路由 → 智能体 → RAG 增强 → 流式返回
 
 #### Phase 1 Milestone: 端到端完整链路 — 用户输入→意图识别→路由→LLM+RAG→流式返回
 
