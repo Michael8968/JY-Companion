@@ -14,6 +14,7 @@ from app.models.user import User, UserProfile  # noqa: F401
 from app.models.conversation import Conversation, Message  # noqa: F401
 from app.models.learning import LearningRecord, ErrorRecord  # noqa: F401
 from app.models.classroom import ClassroomSession, ClassroomDoubt, StudyPlan, UserLearningProfile  # noqa: F401
+from app.models.emotion import EmotionRecord, CrisisAlert, GratitudeEntry  # noqa: F401
 
 config = context.config
 

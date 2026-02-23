@@ -84,14 +84,14 @@
 
 ### 7. Sprint 7 — 情感陪伴智能体 + 危机预警 [SAFETY-CRITICAL] (第13-14周)
 
-- [ ] 7.1 实现 `agents/emotional_agent.py` 共情对话生成（心理学微调 Prompt）
-- [ ] 7.2 实现多模态情绪识别融合 `ai_services/multimodal/emotion_detector.py`
-- [ ] 7.3 **[CRITICAL] 实现危机预警系统：高风险关键词库 + 阈值监测 + 前置同步检查**
-- [ ] 7.4 **[CRITICAL] 实现危机告警即时推送（Redis Pub/Sub → 教师/家长/心理专员）**
-- [ ] 7.5 构建积极心理学干预策略库（≥50 条标准化策略）
+- [x] 7.1 实现 `agents/emotional_agent.py` 共情对话生成（心理学微调 Prompt）
+- [x] 7.2 实现多模态情绪识别融合 `ai_services/multimodal/emotion_detector.py`
+- [x] 7.3 **[CRITICAL] 实现危机预警系统：高风险关键词库 + 阈值监测 + 前置同步检查**
+- [x] 7.4 **[CRITICAL] 实现危机告警即时推送（Redis Pub/Sub → 教师/家长/心理专员）**
+- [x] 7.5 构建积极心理学干预策略库（≥50 条标准化策略）
 - [ ] 7.6 Flutter 情感陪伴页面：情绪日记、呼吸练习引导、放松动画、情绪趋势图
-- [ ] 7.7 实现 EmotionRecord / CrisisAlert 数据模型 + API
-- [ ] 7.8 **[CRITICAL] 危机预警端到端测试：验证 ≤30s 响应、100% 召回率**
+- [x] 7.7 实现 EmotionRecord / CrisisAlert 数据模型 + API
+- [x] 7.8 **[CRITICAL] 危机预警端到端测试：验证 ≤30s 响应、100% 召回率**
 
 ### 8. Sprint 8 — 健康守护 + 创意创作 + 生涯规划 (第15-16周)
 

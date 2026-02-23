@@ -5,7 +5,8 @@
       "Bash(openspec instructions apply:*)",
       "Bash(flutter --version:*)",
       "Bash(uv:*)",
-      "Bash(docker --version:*)"
+      "Bash(docker --version:*)",
+      "mcp__plugin_claude-mem_mcp-search__save_memory"
     ]
   }
 }
