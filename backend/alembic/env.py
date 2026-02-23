@@ -1,10 +1,11 @@
 import asyncio
+import sys
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import pool
+from sqlalchemy import create_engine, pool
 from sqlalchemy.engine import Connection
-from sqlalchemy.ext.asyncio import async_engine_from_config
+from sqlalchemy.ext.asyncio import create_async_engine
 
 from app.core.database import Base
 from app.config.settings import get_settings
@@ -48,11 +49,36 @@ def do_run_migrations(connection: Connection) -> None:
         context.run_migrations()
 
 
-async def run_async_migrations() -> None:
-    connectable = async_engine_from_config(
-        config.get_section(config.config_ini_section, {}),
-        prefix="sqlalchemy.",
+def _sync_url() -> str:
+    """同步驱动 URL（psycopg2），用于 Windows 上避免 asyncpg 与 Docker 端口兼容问题。"""
+    import os
+    # 从纯 ASCII 环境变量构建，避免 Windows 下 .env 编码导致的 UnicodeDecodeError
+    host = os.environ.get("DB_HOST", "127.0.0.1")
+    port = os.environ.get("DB_PORT", "5433")
+    name = os.environ.get("DB_NAME", "jy_companion")
+    user = os.environ.get("DB_USER", "postgres")
+    password = os.environ.get("DB_PASSWORD", "postgres")
+    return f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{name}"
+
+
+def run_migrations_online_sync() -> None:
+    """使用同步引擎运行迁移（Windows 上更稳定）。"""
+    import os
+    os.environ.setdefault("PGCLIENTENCODING", "UTF8")
+    connectable = create_engine(
+        _sync_url(),
         poolclass=pool.NullPool,
+    )
+    with connectable.connect() as connection:
+        do_run_migrations(connection)
+    connectable.dispose()
+
+
+async def run_async_migrations() -> None:
+    connectable = create_async_engine(
+        settings.database_url,
+        poolclass=pool.NullPool,
+        connect_args={"timeout": 10},
     )
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
@@ -60,7 +86,10 @@ async def run_async_migrations() -> None:
 
 
 def run_migrations_online() -> None:
-    asyncio.run(run_async_migrations())
+    if sys.platform == "win32":
+        run_migrations_online_sync()
+    else:
+        asyncio.run(run_async_migrations())
 
 
 if context.is_offline_mode():

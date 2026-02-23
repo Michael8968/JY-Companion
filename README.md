@@ -150,6 +150,15 @@ cp .env.example .env
 # 4. 运行数据库迁移
 uv run alembic upgrade head
 
+# Windows 下若出现 UnicodeDecodeError（连接 Docker 内 PostgreSQL），可改用 Docker 内迁移：
+#   cd infrastructure/docker
+#   docker compose run --rm migrate
+# 或在删除旧数据卷后用 UTF-8 重新初始化：
+#   docker compose down postgres
+#   docker volume rm docker_postgres_data
+#   docker compose up -d postgres
+#   等待几秒后回到 backend 执行：uv run alembic upgrade head
+
 # 5. 启动开发服务器
 uv run uvicorn app.main:app --reload --port 8000
 ```

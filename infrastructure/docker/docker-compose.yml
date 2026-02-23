@@ -9,8 +9,10 @@ services:
       POSTGRES_DB: jy_companion
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
     ports:
-      - "5432:5432"
+      - "5433:5432"   # 主机 5433 映射到容器 5432（若 5432 被占用可改用此端口）
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -18,6 +20,22 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  # ============================
+  # 数据库迁移（在 Docker 内执行，避免 Windows 下 psycopg2 UnicodeDecodeError）
+  # 用法：在 infrastructure/docker 下执行 docker compose run --rm migrate
+  # ============================
+  migrate:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: jy-migrate
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/jy_companion
+    command: ["uv", "run", "alembic", "upgrade", "head"]
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   # ============================
   # Redis - 缓存/消息队列/限流
