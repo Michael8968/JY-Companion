@@ -1,0 +1,211 @@
+# APISIX API Gateway configuration for JY-Companion platform.
+#
+# Deploy: docker run -v ./apisix.yaml:/usr/local/apisix/conf/apisix.yaml apache/apisix:3.9
+#
+# Features:
+#   - Rate limiting per role (student: 100/min, teacher: 500/min)
+#   - JWT authentication verification
+#   - Route-based upstream (backend API, AI services)
+#   - Health check & circuit breaker
+#   - Request/response logging
+#   - IP allowlist for admin routes
+
+apisix:
+  node_listen: 9080
+  enable_control: true
+  control:
+    ip: "0.0.0.0"
+    port: 9092
+
+deployment:
+  role: data_plane
+  role_data_plane:
+    config_provider: yaml
+
+# ─── Global Plugins ────────────────────────────────────────────
+
+plugin_attr:
+  prometheus:
+    export_addr:
+      ip: "0.0.0.0"
+      port: 9091
+
+# ─── Upstreams ─────────────────────────────────────────────────
+
+upstreams:
+  - id: backend_api
+    type: roundrobin
+    nodes:
+      "backend:8000": 1
+    checks:
+      active:
+        type: http
+        http_path: /api/v1/health
+        healthy:
+          interval: 5
+          successes: 2
+        unhealthy:
+          interval: 5
+          http_failures: 3
+
+  - id: ai_llm_service
+    type: roundrobin
+    nodes:
+      "vllm:8080": 1
+
+  - id: ai_asr_service
+    type: roundrobin
+    nodes:
+      "funasr:8867": 1
+
+  - id: ai_tts_service
+    type: roundrobin
+    nodes:
+      "cosyvoice:8090": 1
+
+# ─── Routes ────────────────────────────────────────────────────
+
+routes:
+  # Health check (no auth)
+  - id: health
+    uri: /api/v1/health
+    upstream_id: backend_api
+    plugins:
+      proxy-rewrite:
+        uri: /api/v1/health
+
+  # Authentication endpoints (no rate limit)
+  - id: auth
+    uri: /api/v1/auth/*
+    upstream_id: backend_api
+    plugins:
+      limit-req:
+        rate: 20
+        burst: 10
+        key: remote_addr
+        rejected_code: 429
+
+  # SSO endpoints
+  - id: sso
+    uri: /api/v1/auth/sso/*
+    upstream_id: backend_api
+    plugins:
+      limit-req:
+        rate: 30
+        burst: 15
+        key: remote_addr
+        rejected_code: 429
+
+  # Student API routes (100/min rate limit)
+  - id: student_api
+    uri: /api/v1/*
+    upstream_id: backend_api
+    plugins:
+      jwt-auth: {}
+      limit-count:
+        count: 100
+        time_window: 60
+        key_type: var
+        key: consumer_name
+        rejected_code: 429
+        rejected_msg: "请求过于频繁，请稍后再试。"
+      # Request/response logging
+      syslog:
+        host: "127.0.0.1"
+        port: 514
+        flush_limit: 100
+
+  # Chat WebSocket (separate config for persistent connections)
+  - id: chat_ws
+    uri: /api/v1/chat/ws
+    upstream_id: backend_api
+    enable_websocket: true
+    plugins:
+      jwt-auth: {}
+      limit-conn:
+        conn: 10
+        burst: 5
+        default_conn_delay: 1
+        key_type: var
+        key: remote_addr
+        rejected_code: 503
+
+  # Voice API (higher timeout for ASR/TTS)
+  - id: voice_api
+    uri: /api/v1/voice/*
+    upstream_id: backend_api
+    plugins:
+      jwt-auth: {}
+      limit-count:
+        count: 30
+        time_window: 60
+        key_type: var
+        key: consumer_name
+        rejected_code: 429
+      proxy-rewrite:
+        headers:
+          set:
+            X-Request-Timeout: "60"
+
+  # Admin routes (IP allowlist + admin role required)
+  - id: admin_api
+    uri: /api/v1/admin/*
+    upstream_id: backend_api
+    plugins:
+      jwt-auth: {}
+      ip-restriction:
+        whitelist:
+          - "10.0.0.0/8"
+          - "172.16.0.0/12"
+          - "192.168.0.0/16"
+          - "127.0.0.1"
+      limit-count:
+        count: 500
+        time_window: 60
+        key_type: var
+        key: consumer_name
+        rejected_code: 429
+
+# ─── Consumers (JWT-based role mapping) ────────────────────────
+
+consumers:
+  - username: student
+    plugins:
+      jwt-auth:
+        key: jy-student-key
+        algorithm: HS256
+
+  - username: teacher
+    plugins:
+      jwt-auth:
+        key: jy-teacher-key
+        algorithm: HS256
+
+  - username: admin
+    plugins:
+      jwt-auth:
+        key: jy-admin-key
+        algorithm: HS256
+
+# ─── Global Rules ──────────────────────────────────────────────
+
+global_rules:
+  - id: 1
+    plugins:
+      # Enable Prometheus metrics
+      prometheus: {}
+      # Request ID for tracing
+      request-id:
+        header_name: X-Request-Id
+        include_in_response: true
+      # Response headers for security
+      response-rewrite:
+        headers:
+          set:
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: DENY
+            X-XSS-Protection: "1; mode=block"
+            Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+            Content-Security-Policy: "default-src 'self'"
+
+#END

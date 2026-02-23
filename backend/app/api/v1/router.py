@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from app.api.v1.academic import router as academic_router
+from app.api.v1.admin import router as admin_router
 from app.api.v1.auth import router as auth_router
 from app.api.v1.career import router as career_router
 from app.api.v1.chat import router as chat_router
@@ -33,3 +34,4 @@ router.include_router(career_router)
 router.include_router(persona_router)
 router.include_router(voice_router)
 router.include_router(sso_router)
+router.include_router(admin_router)
