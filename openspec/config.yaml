@@ -1,20 +1,28 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  Project: 晋元中学 AI 智能学伴平台 (Jinyuan High School AI Intelligent Learning Companion)
+  Tech stack: Flutter 3.24+ (frontend), Python FastAPI (backend), vLLM (LLM inference)
+  Databases: PostgreSQL 16+, Milvus 2.4+ (vector), Neo4j 5.x (knowledge graph), Redis 7.4+, MongoDB 7.0+
+  AI Foundation: 华东师范大学「启创·InnoSpark 1.0」教育大模型
+  Architecture: 5-layer (Foundation Resource / Intelligent Hub / Capability Modules / Persona Interaction / Application Scenario)
+  Core Agents: 学业辅导、课堂复盘、情感陪伴、健康守护、创意创作、生涯规划
+  Target Users: 高中学生、教师、家长
+  Team: 10+ engineers
+  Timeline: 6 months (12 sprints)
+  Domain: K-12 Education AI Platform
+  Language: Chinese (zh-CN) primary, technical terms in English
+  Compliance: 等保2.0三级, 个人信息保护法, 数据安全法, 未成年人网络保护条例
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Reference the product spec at docs/晋元中学ai智能学伴平台 产品说明书.md
+    - Include all 6 intelligent agents in capabilities
+  specs:
+    - Use WHEN/THEN/AND format for testable scenarios
+    - Include performance indicators from product spec
+    - Mark safety-critical requirements explicitly
+  tasks:
+    - Organize by Sprint (2-week iterations)
+    - Include milestone checkpoints
+    - Mark dependencies between tasks
