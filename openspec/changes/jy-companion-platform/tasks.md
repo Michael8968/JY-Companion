@@ -2,13 +2,13 @@
 
 ### 1. Sprint 1 — 项目初始化与基础架构 (第1-2周)
 
-- [ ] 1.1 创建 Monorepo 目录结构、`.gitignore`、`Makefile`、`.editorconfig`
+- [x] 1.1 创建 Monorepo 目录结构、`.gitignore`、`Makefile`、`.editorconfig`
 - [ ] 1.2 Flutter 项目初始化 (`flutter create`)，配置 BLoC / go_router / dio / get_it
-- [ ] 1.3 FastAPI 项目初始化，创建 `pyproject.toml`(uv)、目录结构、`main.py`
-- [ ] 1.4 编写 `docker-compose.yml` (PostgreSQL + Redis + Milvus + Neo4j + MinIO)
-- [ ] 1.5 配置 GitHub Actions CI Pipeline (backend lint+test, frontend lint+test+build)
+- [x] 1.3 FastAPI 项目初始化，创建 `pyproject.toml`(uv)、目录结构、`main.py`
+- [x] 1.4 编写 `docker-compose.yml` (PostgreSQL + Redis + Milvus + Neo4j + MinIO)
+- [x] 1.5 配置 GitHub Actions CI Pipeline (backend lint+test, frontend lint+test+build)
 - [ ] 1.6 UI 设计系统：色彩规范、字体规范、基础组件库（Figma）
-- [ ] 1.7 数据库 Schema 初版 ER 设计文档
+- [x] 1.7 数据库 Schema 初版 ER 设计文档
 - [ ] 1.8 AI 服务 GPU 环境搭建与配置
 
 #### Milestone: Flutter 空壳可运行 + FastAPI health check + Docker 一键启动

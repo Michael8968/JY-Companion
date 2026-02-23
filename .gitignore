@@ -1,0 +1,105 @@
+# =========================
+# Python / FastAPI
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+*.whl
+.venv/
+venv/
+env/
+.uv/
+.python-version
+
+# =========================
+# Flutter / Dart
+# =========================
+frontend/.dart_tool/
+frontend/.packages
+frontend/.pub-cache/
+frontend/.pub/
+frontend/build/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/android/app/debug/
+frontend/android/app/profile/
+frontend/android/app/release/
+frontend/ios/Pods/
+frontend/ios/.symlinks/
+frontend/ios/Flutter/Flutter.framework
+frontend/ios/Flutter/Flutter.podspec
+frontend/macos/Pods/
+frontend/windows/flutter/ephemeral/
+frontend/linux/flutter/ephemeral/
+*.iml
+
+# =========================
+# IDEs
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# =========================
+# Environment & Secrets
+# =========================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.yaml
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# =========================
+# Docker
+# =========================
+infrastructure/docker/data/
+*.log
+
+# =========================
+# AI Models (large files)
+# =========================
+ai_services/models/
+*.bin
+*.pt
+*.onnx
+*.safetensors
+
+# =========================
+# Testing / Coverage
+# =========================
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.pytest_cache/
+.mypy_cache/
+
+# =========================
+# Misc
+# =========================
+*.bak
+*.tmp
+node_modules/

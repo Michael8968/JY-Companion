@@ -1,0 +1,39 @@
+name: CI - Frontend
+
+on:
+  push:
+    branches: [main]
+    paths: ["frontend/**"]
+  pull_request:
+    branches: [main]
+    paths: ["frontend/**"]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Format check
+        run: dart format --set-exit-if-changed lib/ test/
+
+      - name: Run tests
+        run: flutter test --coverage
+
+      - name: Build APK (verify)
+        run: flutter build apk --debug
