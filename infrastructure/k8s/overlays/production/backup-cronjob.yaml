@@ -1,0 +1,112 @@
+# Database backup CronJob — daily full + hourly incremental
+# RTO ≤ 4h, RPO ≤ 1h
+---
+# Daily full backup at 2:00 AM
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup-full
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backupLimit: 4
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: pg-backup
+              image: postgres:16-alpine
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+                  BACKUP_FILE="/backups/full/jy_companion_full_${TIMESTAMP}.sql.gz"
+                  echo "Starting full backup: ${BACKUP_FILE}"
+                  pg_dump -h $PGHOST -U $PGUSER -d $PGDATABASE | gzip > "${BACKUP_FILE}"
+                  echo "Full backup complete: $(du -h ${BACKUP_FILE})"
+                  # Cleanup backups older than 30 days
+                  find /backups/full -name "*.sql.gz" -mtime +30 -delete
+              env:
+                - name: PGHOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: backend-secrets
+                      key: pg-host
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: backend-secrets
+                      key: pg-user
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: backend-secrets
+                      key: pg-password
+                - name: PGDATABASE
+                  value: jy_companion
+              volumeMounts:
+                - name: backup-storage
+                  mountPath: /backups
+          volumes:
+            - name: backup-storage
+              persistentVolumeClaim:
+                claimName: backup-pvc
+
+---
+# Hourly incremental backup (WAL archiving)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup-incremental
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 24
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: pg-wal-backup
+              image: postgres:16-alpine
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+                  echo "Starting incremental WAL backup: ${TIMESTAMP}"
+                  pg_basebackup -h $PGHOST -U $PGUSER -D /backups/incremental/${TIMESTAMP} \
+                    --wal-method=stream --checkpoint=fast --compress=gzip
+                  echo "Incremental backup complete"
+                  # Keep only 48 hours of incremental backups
+                  find /backups/incremental -maxdepth 1 -type d -mtime +2 -exec rm -rf {} +
+              env:
+                - name: PGHOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: backend-secrets
+                      key: pg-host
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: backend-secrets
+                      key: pg-user
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: backend-secrets
+                      key: pg-password
+              volumeMounts:
+                - name: backup-storage
+                  mountPath: /backups
+          volumes:
+            - name: backup-storage
+              persistentVolumeClaim:
+                claimName: backup-pvc

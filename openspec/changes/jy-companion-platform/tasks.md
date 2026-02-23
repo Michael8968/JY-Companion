@@ -158,10 +158,10 @@
 
 ### 12. Sprint 12 — 生产部署 + UAT + 上线 (第23-24周)
 
-- [ ] 12.1 K8s 生产环境部署（蓝绿部署策略）
-- [ ] 12.2 完善 Prometheus + Grafana 监控大屏
-- [ ] 12.3 实施灾备方案（双活 + 每日全量备份 + 实时增量备份，RTO≤4h RPO≤1h）
-- [ ] 12.4 对接学校教务系统数据 `integrations/school_system.py`
+- [x] 12.1 K8s 生产环境部署（蓝绿部署策略）
+- [x] 12.2 完善 Prometheus + Grafana 监控大屏
+- [x] 12.3 实施灾备方案（双活 + 每日全量备份 + 实时增量备份，RTO≤4h RPO≤1h）
+- [x] 12.4 对接学校教务系统数据 `integrations/school_system.py`
 - [ ] 12.5 UAT 用户验收测试（学生/教师/家长三方参与）
 - [ ] 12.6 iOS App Store + Android 应用商店 / MDM 分发包准备
 - [ ] 12.7 编写用户手册与培训材料

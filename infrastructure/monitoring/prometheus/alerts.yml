@@ -1,0 +1,75 @@
+# Prometheus alerting rules for JY-Companion
+groups:
+  - name: backend_alerts
+    rules:
+      # High error rate
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backend error rate > 5%"
+          description: "{{ $labels.instance }} error rate is {{ $value | humanizePercentage }}"
+
+      # Slow response time (P95 > 3s)
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "P95 response time > 3s"
+          description: "{{ $labels.instance }} P95 latency is {{ $value }}s"
+
+      # Pod restart loop
+      - alert: PodCrashLooping
+        expr: rate(kube_pod_container_status_restarts_total{namespace="jy-companion"}[15m]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Pod crash looping"
+          description: "{{ $labels.pod }} is restarting frequently"
+
+  - name: crisis_alerts
+    rules:
+      # Unacknowledged crisis alert (SAFETY-CRITICAL)
+      - alert: CrisisAlertUnacknowledged
+        expr: jy_crisis_alerts_active > 0
+        for: 5m
+        labels:
+          severity: critical
+          safety: "true"
+        annotations:
+          summary: "[SAFETY] Unacknowledged crisis alert"
+          description: "{{ $value }} crisis alert(s) have not been acknowledged within 5 minutes"
+
+  - name: infrastructure_alerts
+    rules:
+      # Database connection pool exhaustion
+      - alert: DBConnectionPoolHigh
+        expr: pg_stat_activity_count / pg_settings_max_connections > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database connection pool > 80%"
+
+      # Redis memory usage
+      - alert: RedisMemoryHigh
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.8
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis memory usage > 80%"
+
+      # Disk usage
+      - alert: DiskUsageHigh
+        expr: (node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes > 0.85
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk usage > 85% on {{ $labels.mountpoint }}"

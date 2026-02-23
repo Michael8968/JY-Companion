@@ -1,0 +1,55 @@
+# APISIX API Gateway Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apisix-gateway
+  labels:
+    app: apisix-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apisix-gateway
+  template:
+    metadata:
+      labels:
+        app: apisix-gateway
+    spec:
+      containers:
+        - name: apisix
+          image: apache/apisix:3.9-debian
+          ports:
+            - containerPort: 9080
+              name: http
+            - containerPort: 9443
+              name: https
+            - containerPort: 9091
+              name: metrics
+          volumeMounts:
+            - name: apisix-config
+              mountPath: /usr/local/apisix/conf/apisix.yaml
+              subPath: apisix.yaml
+              readOnly: true
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /apisix/status
+              port: 9080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /apisix/status
+              port: 9080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: apisix-config
+          configMap:
+            name: apisix-config

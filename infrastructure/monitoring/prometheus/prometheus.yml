@@ -1,0 +1,63 @@
+# Prometheus configuration for JY-Companion platform monitoring
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+
+# Alerting rules
+rule_files:
+  - "alerts.yml"
+
+# Scrape targets
+scrape_configs:
+  # Backend API metrics
+  - job_name: "backend-api"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["backend-api:8000"]
+        labels:
+          service: "backend"
+          environment: "production"
+
+  # APISIX gateway metrics
+  - job_name: "apisix"
+    metrics_path: /apisix/prometheus/metrics
+    static_configs:
+      - targets: ["apisix-gateway:9091"]
+        labels:
+          service: "gateway"
+
+  # PostgreSQL exporter
+  - job_name: "postgres"
+    static_configs:
+      - targets: ["postgres-exporter:9187"]
+        labels:
+          service: "database"
+
+  # Redis exporter
+  - job_name: "redis"
+    static_configs:
+      - targets: ["redis-exporter:9121"]
+        labels:
+          service: "cache"
+
+  # Milvus metrics
+  - job_name: "milvus"
+    static_configs:
+      - targets: ["milvus:9091"]
+        labels:
+          service: "vector-db"
+
+  # vLLM inference metrics
+  - job_name: "vllm"
+    static_configs:
+      - targets: ["vllm:8080"]
+        labels:
+          service: "llm"
+
+  # Node exporter (host metrics)
+  - job_name: "node"
+    static_configs:
+      - targets: ["node-exporter:9100"]
+        labels:
+          service: "host"
