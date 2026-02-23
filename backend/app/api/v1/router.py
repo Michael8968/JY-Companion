@@ -9,7 +9,9 @@ from app.api.v1.creative import router as creative_router
 from app.api.v1.emotional import router as emotional_router
 from app.api.v1.health import router as health_router
 from app.api.v1.persona import router as persona_router
+from app.api.v1.sso import router as sso_router
 from app.api.v1.users import router as users_router
+from app.api.v1.voice import router as voice_router
 
 router = APIRouter()
 
@@ -29,3 +31,5 @@ router.include_router(health_router)
 router.include_router(creative_router)
 router.include_router(career_router)
 router.include_router(persona_router)
+router.include_router(voice_router)
+router.include_router(sso_router)

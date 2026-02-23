@@ -140,3 +140,85 @@ class EmotionDetector:
             confidence=fused_confidence,
             source=EmotionSource.FUSED,
         )
+
+    def fuse_weighted(
+        self,
+        results: list[EmotionResult],
+        source_weights: dict[str, float] | None = None,
+    ) -> EmotionResult:
+        """Enhanced multi-channel fusion with per-source weights.
+
+        Improves over basic fuse() by applying modality-specific weight priors
+        and agreement bonuses when multiple channels agree on the same emotion.
+
+        Args:
+            results: Emotion results from different modalities.
+            source_weights: Override weights per source, e.g.
+                {"text": 0.4, "voice": 0.35, "visual": 0.25}.
+                Defaults to balanced weights if not provided.
+
+        Returns:
+            Fused EmotionResult with improved accuracy.
+        """
+        if not results:
+            return EmotionResult(
+                label=EmotionLabel.CALM, valence=0.0, arousal=0.2,
+                confidence=0.0, source=EmotionSource.FUSED,
+            )
+
+        if len(results) == 1:
+            return results[0]
+
+        # Default source weight priors (text is most reliable for keyword-based)
+        default_weights: dict[str, float] = {
+            EmotionSource.TEXT.value: 0.40,
+            EmotionSource.VOICE.value: 0.35,
+            EmotionSource.VISUAL.value: 0.25,
+            EmotionSource.FUSED.value: 0.50,
+        }
+        weights = source_weights or default_weights
+
+        # Compute effective weight = source_prior × confidence
+        effective: list[tuple[float, EmotionResult]] = []
+        for r in results:
+            prior = weights.get(r.source.value, 0.33)
+            w = prior * r.confidence
+            effective.append((w, r))
+
+        total_w = sum(w for w, _ in effective)
+        if total_w == 0:
+            return results[0]
+
+        fused_valence = sum(w * r.valence for w, r in effective) / total_w
+        fused_arousal = sum(w * r.arousal for w, r in effective) / total_w
+
+        # Agreement bonus: if majority of sources agree on label, boost confidence
+        label_votes: dict[EmotionLabel, float] = {}
+        for w, r in effective:
+            label_votes[r.label] = label_votes.get(r.label, 0.0) + w
+        majority_label = max(label_votes, key=label_votes.get)
+        agreement_ratio = label_votes[majority_label] / total_w
+
+        # Base confidence + agreement bonus (up to +0.15 for full agreement)
+        base_confidence = sum(r.confidence for _, r in effective) / len(effective)
+        agreement_bonus = 0.15 * agreement_ratio if agreement_ratio > 0.5 else 0.0
+        fused_confidence = min(base_confidence + agreement_bonus, 0.98)
+
+        # Determine label from fused valence/arousal (more accurate than vote alone)
+        best_label = EmotionLabel.CALM
+        best_dist = float("inf")
+        for label in EmotionLabel:
+            v = _VALENCE_MAP.get(label, 0.0)
+            a = _AROUSAL_MAP.get(label, 0.5)
+            dist = (fused_valence - v) ** 2 + (fused_arousal - a) ** 2
+            if dist < best_dist:
+                best_dist = dist
+                best_label = label
+
+        return EmotionResult(
+            label=best_label,
+            valence=fused_valence,
+            arousal=fused_arousal,
+            confidence=fused_confidence,
+            source=EmotionSource.FUSED,
+        )
