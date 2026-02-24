@@ -7,7 +7,8 @@
       "Bash(uv:*)",
       "Bash(docker --version:*)",
       "mcp__plugin_claude-mem_mcp-search__save_memory",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(export PATH=\"$PATH:/c/flutter/bin:$HOME/flutter/bin:$LOCALAPPDATA/flutter/bin:/c/src/flutter/bin\")"
     ]
   }
 }
