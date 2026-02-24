@@ -6,7 +6,7 @@ part 'message_list_model.freezed.dart';
 part 'message_list_model.g.dart';
 
 @freezed
-class MessageListModel with _$MessageListModel {
+abstract class MessageListModel with _$MessageListModel {
   const factory MessageListModel({
     required List<MessageModel> messages,
     required int total,

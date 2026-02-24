@@ -4,7 +4,7 @@ part 'create_conversation_model.freezed.dart';
 part 'create_conversation_model.g.dart';
 
 @freezed
-class CreateConversationModel with _$CreateConversationModel {
+abstract class CreateConversationModel with _$CreateConversationModel {
   const factory CreateConversationModel({
     required String agentType,
     String? personaId,

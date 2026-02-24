@@ -4,7 +4,7 @@ part 'persona_binding_model.freezed.dart';
 part 'persona_binding_model.g.dart';
 
 @freezed
-class PersonaBindingModel with _$PersonaBindingModel {
+abstract class PersonaBindingModel with _$PersonaBindingModel {
   const factory PersonaBindingModel({
     required String id,
     required String userId,

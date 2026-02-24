@@ -6,7 +6,7 @@ import '../../domain/entities/persona_binding.dart';
 part 'persona_state.freezed.dart';
 
 @freezed
-class PersonaState with _$PersonaState {
+abstract class PersonaState with _$PersonaState {
   const factory PersonaState({
     @Default([]) List<Persona> personas,
     @Default([]) List<PersonaBinding> bindings,

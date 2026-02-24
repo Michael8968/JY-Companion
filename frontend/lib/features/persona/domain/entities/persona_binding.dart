@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'persona_binding.freezed.dart';
 
 @freezed
-class PersonaBinding with _$PersonaBinding {
+abstract class PersonaBinding with _$PersonaBinding {
   const factory PersonaBinding({
     required String id,
     required String userId,

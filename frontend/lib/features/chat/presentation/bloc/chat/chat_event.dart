@@ -5,7 +5,7 @@ import '../../../data/models/ws_message_model.dart';
 part 'chat_event.freezed.dart';
 
 @freezed
-class ChatEvent with _$ChatEvent {
+abstract class ChatEvent with _$ChatEvent {
   const factory ChatEvent.enterChat(String conversationId) = _EnterChat;
   const factory ChatEvent.leaveChat() = _LeaveChat;
   const factory ChatEvent.sendMessage(String content) = _SendMessage;

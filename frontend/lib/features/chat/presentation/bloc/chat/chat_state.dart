@@ -5,7 +5,7 @@ import '../../../domain/entities/message.dart';
 part 'chat_state.freezed.dart';
 
 @freezed
-class ChatState with _$ChatState {
+abstract class ChatState with _$ChatState {
   const factory ChatState({
     @Default([]) List<Message> messages,
     @Default(false) bool isLoadingHistory,

@@ -5,7 +5,7 @@ part 'ws_message_model.g.dart';
 
 /// Message sent from client to server via WebSocket
 @freezed
-class WsIncomingMessage with _$WsIncomingMessage {
+abstract class WsIncomingMessage with _$WsIncomingMessage {
   const factory WsIncomingMessage({
     required String type,
     String? conversationId,
@@ -36,7 +36,7 @@ class WsIncomingMessage with _$WsIncomingMessage {
 
 /// Message received from server via WebSocket
 @freezed
-class WsOutgoingMessage with _$WsOutgoingMessage {
+abstract class WsOutgoingMessage with _$WsOutgoingMessage {
   const factory WsOutgoingMessage({
     required String type,
     Map<String, dynamic>? data,

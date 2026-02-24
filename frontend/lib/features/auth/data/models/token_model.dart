@@ -4,7 +4,7 @@ part 'token_model.freezed.dart';
 part 'token_model.g.dart';
 
 @freezed
-class TokenModel with _$TokenModel {
+abstract class TokenModel with _$TokenModel {
   const factory TokenModel({
     required String accessToken,
     required String refreshToken,

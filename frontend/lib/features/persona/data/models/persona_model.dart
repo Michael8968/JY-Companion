@@ -4,7 +4,7 @@ part 'persona_model.freezed.dart';
 part 'persona_model.g.dart';
 
 @freezed
-class PersonaModel with _$PersonaModel {
+abstract class PersonaModel with _$PersonaModel {
   const factory PersonaModel({
     required String id,
     required String name,

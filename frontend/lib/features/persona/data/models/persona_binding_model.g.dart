@@ -19,14 +19,14 @@ _PersonaBindingModel _$PersonaBindingModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$PersonaBindingModelToJson(
-        _PersonaBindingModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'user_id': instance.userId,
-      'persona_id': instance.personaId,
-      'nickname': instance.nickname,
-      'is_active': instance.isActive,
-      'is_default': instance.isDefault,
-      'interaction_count': instance.interactionCount,
-      'created_at': instance.createdAt.toIso8601String(),
-    };
+  _PersonaBindingModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'user_id': instance.userId,
+  'persona_id': instance.personaId,
+  'nickname': instance.nickname,
+  'is_active': instance.isActive,
+  'is_default': instance.isDefault,
+  'interaction_count': instance.interactionCount,
+  'created_at': instance.createdAt.toIso8601String(),
+};

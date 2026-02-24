@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'conversation_list_event.freezed.dart';
 
 @freezed
-class ConversationListEvent with _$ConversationListEvent {
+abstract class ConversationListEvent with _$ConversationListEvent {
   const factory ConversationListEvent.load() = _Load;
   const factory ConversationListEvent.refresh() = _Refresh;
   const factory ConversationListEvent.create({

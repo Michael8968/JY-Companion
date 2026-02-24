@@ -51,85 +51,111 @@ import 'features/persona/domain/usecases/list_personas_usecase.dart' as _i244;
 import 'features/persona/presentation/bloc/persona_bloc.dart' as _i792;
 
 extension GetItInjectableX on _i174.GetIt {
-// initializes the registration of main-scope dependencies inside of GetIt
+  // initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(
-      this,
-      environment,
-      environmentFilter,
-    );
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final connectivityModule = _$ConnectivityModule();
     final networkModule = _$NetworkModule();
     gh.singleton<_i895.Connectivity>(() => connectivityModule.connectivity);
     gh.singleton<_i1052.TokenManager>(() => _i1052.TokenManager());
     gh.singleton<_i361.Dio>(() => networkModule.dio(gh<_i1052.TokenManager>()));
     gh.singleton<_i110.AppRouterConfig>(
-        () => _i110.AppRouterConfig(gh<_i1052.TokenManager>()));
+      () => _i110.AppRouterConfig(gh<_i1052.TokenManager>()),
+    );
     gh.factory<_i9.AuthInterceptor>(
-        () => _i9.AuthInterceptor(gh<_i1052.TokenManager>()));
+      () => _i9.AuthInterceptor(gh<_i1052.TokenManager>()),
+    );
     gh.factory<_i548.ChatWsDataSource>(
-        () => _i548.ChatWsDataSource(gh<_i1052.TokenManager>()));
+      () => _i548.ChatWsDataSource(gh<_i1052.TokenManager>()),
+    );
     gh.factory<_i767.AuthRemoteDataSource>(
-        () => _i767.AuthRemoteDataSource(gh<_i361.Dio>()));
+      () => _i767.AuthRemoteDataSource(gh<_i361.Dio>()),
+    );
     gh.factory<_i1000.ChatRemoteDataSource>(
-        () => _i1000.ChatRemoteDataSource(gh<_i361.Dio>()));
+      () => _i1000.ChatRemoteDataSource(gh<_i361.Dio>()),
+    );
     gh.factory<_i498.PersonaRemoteDataSource>(
-        () => _i498.PersonaRemoteDataSource(gh<_i361.Dio>()));
+      () => _i498.PersonaRemoteDataSource(gh<_i361.Dio>()),
+    );
     gh.factory<_i406.PersonaRepository>(
-        () => _i348.PersonaRepositoryImpl(gh<_i498.PersonaRemoteDataSource>()));
+      () => _i348.PersonaRepositoryImpl(gh<_i498.PersonaRemoteDataSource>()),
+    );
     gh.factory<_i75.NetworkInfo>(
-        () => _i75.NetworkInfoImpl(gh<_i895.Connectivity>()));
+      () => _i75.NetworkInfoImpl(gh<_i895.Connectivity>()),
+    );
     gh.factory<_i165.BindPersonaUseCase>(
-        () => _i165.BindPersonaUseCase(gh<_i406.PersonaRepository>()));
+      () => _i165.BindPersonaUseCase(gh<_i406.PersonaRepository>()),
+    );
     gh.factory<_i592.ListBindingsUseCase>(
-        () => _i592.ListBindingsUseCase(gh<_i406.PersonaRepository>()));
+      () => _i592.ListBindingsUseCase(gh<_i406.PersonaRepository>()),
+    );
     gh.factory<_i244.ListPersonasUseCase>(
-        () => _i244.ListPersonasUseCase(gh<_i406.PersonaRepository>()));
+      () => _i244.ListPersonasUseCase(gh<_i406.PersonaRepository>()),
+    );
     gh.factory<_i453.ChatRepository>(
-        () => _i382.ChatRepositoryImpl(gh<_i1000.ChatRemoteDataSource>()));
-    gh.factory<_i792.PersonaBloc>(() => _i792.PersonaBloc(
-          gh<_i244.ListPersonasUseCase>(),
-          gh<_i165.BindPersonaUseCase>(),
-          gh<_i592.ListBindingsUseCase>(),
-        ));
-    gh.factory<_i1015.AuthRepository>(() => _i111.AuthRepositoryImpl(
-          gh<_i767.AuthRemoteDataSource>(),
-          gh<_i1052.TokenManager>(),
-        ));
+      () => _i382.ChatRepositoryImpl(gh<_i1000.ChatRemoteDataSource>()),
+    );
+    gh.factory<_i792.PersonaBloc>(
+      () => _i792.PersonaBloc(
+        gh<_i244.ListPersonasUseCase>(),
+        gh<_i165.BindPersonaUseCase>(),
+        gh<_i592.ListBindingsUseCase>(),
+      ),
+    );
+    gh.factory<_i1015.AuthRepository>(
+      () => _i111.AuthRepositoryImpl(
+        gh<_i767.AuthRemoteDataSource>(),
+        gh<_i1052.TokenManager>(),
+      ),
+    );
     gh.factory<_i707.CreateConversationUseCase>(
-        () => _i707.CreateConversationUseCase(gh<_i453.ChatRepository>()));
+      () => _i707.CreateConversationUseCase(gh<_i453.ChatRepository>()),
+    );
     gh.factory<_i689.DeleteConversationUseCase>(
-        () => _i689.DeleteConversationUseCase(gh<_i453.ChatRepository>()));
+      () => _i689.DeleteConversationUseCase(gh<_i453.ChatRepository>()),
+    );
     gh.factory<_i350.GetMessagesUseCase>(
-        () => _i350.GetMessagesUseCase(gh<_i453.ChatRepository>()));
+      () => _i350.GetMessagesUseCase(gh<_i453.ChatRepository>()),
+    );
     gh.factory<_i139.ListConversationsUseCase>(
-        () => _i139.ListConversationsUseCase(gh<_i453.ChatRepository>()));
+      () => _i139.ListConversationsUseCase(gh<_i453.ChatRepository>()),
+    );
     gh.factory<_i630.GetCurrentUserUseCase>(
-        () => _i630.GetCurrentUserUseCase(gh<_i1015.AuthRepository>()));
+      () => _i630.GetCurrentUserUseCase(gh<_i1015.AuthRepository>()),
+    );
     gh.factory<_i206.LoginUseCase>(
-        () => _i206.LoginUseCase(gh<_i1015.AuthRepository>()));
+      () => _i206.LoginUseCase(gh<_i1015.AuthRepository>()),
+    );
     gh.factory<_i824.LogoutUseCase>(
-        () => _i824.LogoutUseCase(gh<_i1015.AuthRepository>()));
+      () => _i824.LogoutUseCase(gh<_i1015.AuthRepository>()),
+    );
     gh.factory<_i693.RegisterUseCase>(
-        () => _i693.RegisterUseCase(gh<_i1015.AuthRepository>()));
-    gh.factory<_i561.ChatBloc>(() => _i561.ChatBloc(
-          gh<_i548.ChatWsDataSource>(),
-          gh<_i350.GetMessagesUseCase>(),
-        ));
-    gh.factory<_i384.ConversationListBloc>(() => _i384.ConversationListBloc(
-          gh<_i139.ListConversationsUseCase>(),
-          gh<_i707.CreateConversationUseCase>(),
-          gh<_i689.DeleteConversationUseCase>(),
-        ));
-    gh.factory<_i363.AuthBloc>(() => _i363.AuthBloc(
-          gh<_i206.LoginUseCase>(),
-          gh<_i693.RegisterUseCase>(),
-          gh<_i824.LogoutUseCase>(),
-          gh<_i630.GetCurrentUserUseCase>(),
-        ));
+      () => _i693.RegisterUseCase(gh<_i1015.AuthRepository>()),
+    );
+    gh.factory<_i561.ChatBloc>(
+      () => _i561.ChatBloc(
+        gh<_i548.ChatWsDataSource>(),
+        gh<_i350.GetMessagesUseCase>(),
+      ),
+    );
+    gh.factory<_i384.ConversationListBloc>(
+      () => _i384.ConversationListBloc(
+        gh<_i139.ListConversationsUseCase>(),
+        gh<_i707.CreateConversationUseCase>(),
+        gh<_i689.DeleteConversationUseCase>(),
+      ),
+    );
+    gh.factory<_i363.AuthBloc>(
+      () => _i363.AuthBloc(
+        gh<_i206.LoginUseCase>(),
+        gh<_i693.RegisterUseCase>(),
+        gh<_i824.LogoutUseCase>(),
+        gh<_i630.GetCurrentUserUseCase>(),
+      ),
+    );
     return this;
   }
 }

@@ -17,12 +17,12 @@ void main() {
   late MockLogoutUseCase mockLogoutUseCase;
   late MockGetCurrentUserUseCase mockGetCurrentUserUseCase;
 
-  const testUser = User(
+  final testUser = User(
     id: '550e8400-e29b-41d4-a716-446655440000',
     username: 'student01',
     displayName: '张三',
     role: 'student',
-    createdAt: null,
+    createdAt: DateTime(2024, 1, 1),
   );
 
   setUp(() {
@@ -49,13 +49,13 @@ void main() {
         'emits [loading, authenticated] when getCurrentUser succeeds',
         setUp: () {
           when(() => mockGetCurrentUserUseCase())
-              .thenAnswer((_) async => const Right(testUser));
+              .thenAnswer((_) async => Right(testUser));
         },
         build: buildBloc,
         act: (bloc) => bloc.add(const AuthEvent.appStarted()),
         expect: () => [
           const AuthState.loading(),
-          const AuthState.authenticated(testUser),
+          AuthState.authenticated(testUser),
         ],
       );
 
@@ -79,7 +79,7 @@ void main() {
         'emits [loading, authenticated] when login succeeds',
         setUp: () {
           when(() => mockLoginUseCase(any(), any()))
-              .thenAnswer((_) async => const Right(testUser));
+              .thenAnswer((_) async => Right(testUser));
         },
         build: buildBloc,
         act: (bloc) => bloc.add(
@@ -90,7 +90,7 @@ void main() {
         ),
         expect: () => [
           const AuthState.loading(),
-          const AuthState.authenticated(testUser),
+          AuthState.authenticated(testUser),
         ],
       );
 

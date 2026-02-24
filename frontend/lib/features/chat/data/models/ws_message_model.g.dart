@@ -29,7 +29,4 @@ _WsOutgoingMessage _$WsOutgoingMessageFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$WsOutgoingMessageToJson(_WsOutgoingMessage instance) =>
-    <String, dynamic>{
-      'type': instance.type,
-      'data': instance.data,
-    };
+    <String, dynamic>{'type': instance.type, 'data': instance.data};

@@ -14,74 +14,47 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ConversationModel {
-  String get id;
-  String get agentType;
-  String? get personaId;
-  String? get title;
-  String get status;
-  int get messageCount;
-  DateTime? get lastMessageAt;
-  DateTime get createdAt;
 
-  /// Create a copy of ConversationModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $ConversationModelCopyWith<ConversationModel> get copyWith =>
-      _$ConversationModelCopyWithImpl<ConversationModel>(
-          this as ConversationModel, _$identity);
+ String get id; String get agentType; String? get personaId; String? get title; String get status; int get messageCount; DateTime? get lastMessageAt; DateTime get createdAt;
+/// Create a copy of ConversationModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ConversationModelCopyWith<ConversationModel> get copyWith => _$ConversationModelCopyWithImpl<ConversationModel>(this as ConversationModel, _$identity);
 
   /// Serializes this ConversationModel to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ConversationModel &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.agentType, agentType) ||
-                other.agentType == agentType) &&
-            (identical(other.personaId, personaId) ||
-                other.personaId == personaId) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.messageCount, messageCount) ||
-                other.messageCount == messageCount) &&
-            (identical(other.lastMessageAt, lastMessageAt) ||
-                other.lastMessageAt == lastMessageAt) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, agentType, personaId, title,
-      status, messageCount, lastMessageAt, createdAt);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConversationModel&&(identical(other.id, id) || other.id == id)&&(identical(other.agentType, agentType) || other.agentType == agentType)&&(identical(other.personaId, personaId) || other.personaId == personaId)&&(identical(other.title, title) || other.title == title)&&(identical(other.status, status) || other.status == status)&&(identical(other.messageCount, messageCount) || other.messageCount == messageCount)&&(identical(other.lastMessageAt, lastMessageAt) || other.lastMessageAt == lastMessageAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
 
-  @override
-  String toString() {
-    return 'ConversationModel(id: $id, agentType: $agentType, personaId: $personaId, title: $title, status: $status, messageCount: $messageCount, lastMessageAt: $lastMessageAt, createdAt: $createdAt)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,agentType,personaId,title,status,messageCount,lastMessageAt,createdAt);
+
+@override
+String toString() {
+  return 'ConversationModel(id: $id, agentType: $agentType, personaId: $personaId, title: $title, status: $status, messageCount: $messageCount, lastMessageAt: $lastMessageAt, createdAt: $createdAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $ConversationModelCopyWith<$Res> {
-  factory $ConversationModelCopyWith(
-          ConversationModel value, $Res Function(ConversationModel) _then) =
-      _$ConversationModelCopyWithImpl;
-  @useResult
-  $Res call(
-      {String id,
-      String agentType,
-      String? personaId,
-      String? title,
-      String status,
-      int messageCount,
-      DateTime? lastMessageAt,
-      DateTime createdAt});
-}
+abstract mixin class $ConversationModelCopyWith<$Res>  {
+  factory $ConversationModelCopyWith(ConversationModel value, $Res Function(ConversationModel) _then) = _$ConversationModelCopyWithImpl;
+@useResult
+$Res call({
+ String id, String agentType, String? personaId, String? title, String status, int messageCount, DateTime? lastMessageAt, DateTime createdAt
+});
 
+
+
+
+}
 /// @nodoc
 class _$ConversationModelCopyWithImpl<$Res>
     implements $ConversationModelCopyWith<$Res> {
@@ -90,362 +63,211 @@ class _$ConversationModelCopyWithImpl<$Res>
   final ConversationModel _self;
   final $Res Function(ConversationModel) _then;
 
-  /// Create a copy of ConversationModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? agentType = null,
-    Object? personaId = freezed,
-    Object? title = freezed,
-    Object? status = null,
-    Object? messageCount = null,
-    Object? lastMessageAt = freezed,
-    Object? createdAt = null,
-  }) {
-    return _then(_self.copyWith(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      agentType: null == agentType
-          ? _self.agentType
-          : agentType // ignore: cast_nullable_to_non_nullable
-              as String,
-      personaId: freezed == personaId
-          ? _self.personaId
-          : personaId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      messageCount: null == messageCount
-          ? _self.messageCount
-          : messageCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      lastMessageAt: freezed == lastMessageAt
-          ? _self.lastMessageAt
-          : lastMessageAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      createdAt: null == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
-  }
+/// Create a copy of ConversationModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? agentType = null,Object? personaId = freezed,Object? title = freezed,Object? status = null,Object? messageCount = null,Object? lastMessageAt = freezed,Object? createdAt = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,agentType: null == agentType ? _self.agentType : agentType // ignore: cast_nullable_to_non_nullable
+as String,personaId: freezed == personaId ? _self.personaId : personaId // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,messageCount: null == messageCount ? _self.messageCount : messageCount // ignore: cast_nullable_to_non_nullable
+as int,lastMessageAt: freezed == lastMessageAt ? _self.lastMessageAt : lastMessageAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
 }
+
+}
+
 
 /// Adds pattern-matching-related methods to [ConversationModel].
 extension ConversationModelPatterns on ConversationModel {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_ConversationModel value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _ConversationModel() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ConversationModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ConversationModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_ConversationModel value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ConversationModel():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ConversationModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _ConversationModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_ConversationModel value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ConversationModel() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ConversationModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ConversationModel() when $default != null:
+return $default(_that);case _:
+  return null;
 
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String id,
-            String agentType,
-            String? personaId,
-            String? title,
-            String status,
-            int messageCount,
-            DateTime? lastMessageAt,
-            DateTime createdAt)?
-        $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _ConversationModel() when $default != null:
-        return $default(
-            _that.id,
-            _that.agentType,
-            _that.personaId,
-            _that.title,
-            _that.status,
-            _that.messageCount,
-            _that.lastMessageAt,
-            _that.createdAt);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String agentType,  String? personaId,  String? title,  String status,  int messageCount,  DateTime? lastMessageAt,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ConversationModel() when $default != null:
+return $default(_that.id,_that.agentType,_that.personaId,_that.title,_that.status,_that.messageCount,_that.lastMessageAt,_that.createdAt);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String id,
-            String agentType,
-            String? personaId,
-            String? title,
-            String status,
-            int messageCount,
-            DateTime? lastMessageAt,
-            DateTime createdAt)
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ConversationModel():
-        return $default(
-            _that.id,
-            _that.agentType,
-            _that.personaId,
-            _that.title,
-            _that.status,
-            _that.messageCount,
-            _that.lastMessageAt,
-            _that.createdAt);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String agentType,  String? personaId,  String? title,  String status,  int messageCount,  DateTime? lastMessageAt,  DateTime createdAt)  $default,) {final _that = this;
+switch (_that) {
+case _ConversationModel():
+return $default(_that.id,_that.agentType,_that.personaId,_that.title,_that.status,_that.messageCount,_that.lastMessageAt,_that.createdAt);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String id,
-            String agentType,
-            String? personaId,
-            String? title,
-            String status,
-            int messageCount,
-            DateTime? lastMessageAt,
-            DateTime createdAt)?
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ConversationModel() when $default != null:
-        return $default(
-            _that.id,
-            _that.agentType,
-            _that.personaId,
-            _that.title,
-            _that.status,
-            _that.messageCount,
-            _that.lastMessageAt,
-            _that.createdAt);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String agentType,  String? personaId,  String? title,  String status,  int messageCount,  DateTime? lastMessageAt,  DateTime createdAt)?  $default,) {final _that = this;
+switch (_that) {
+case _ConversationModel() when $default != null:
+return $default(_that.id,_that.agentType,_that.personaId,_that.title,_that.status,_that.messageCount,_that.lastMessageAt,_that.createdAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
+
 class _ConversationModel implements ConversationModel {
-  const _ConversationModel(
-      {required this.id,
-      required this.agentType,
-      this.personaId,
-      this.title,
-      required this.status,
-      required this.messageCount,
-      this.lastMessageAt,
-      required this.createdAt});
-  factory _ConversationModel.fromJson(Map<String, dynamic> json) =>
-      _$ConversationModelFromJson(json);
+  const _ConversationModel({required this.id, required this.agentType, this.personaId, this.title, required this.status, required this.messageCount, this.lastMessageAt, required this.createdAt});
+  factory _ConversationModel.fromJson(Map<String, dynamic> json) => _$ConversationModelFromJson(json);
 
-  @override
-  final String id;
-  @override
-  final String agentType;
-  @override
-  final String? personaId;
-  @override
-  final String? title;
-  @override
-  final String status;
-  @override
-  final int messageCount;
-  @override
-  final DateTime? lastMessageAt;
-  @override
-  final DateTime createdAt;
+@override final  String id;
+@override final  String agentType;
+@override final  String? personaId;
+@override final  String? title;
+@override final  String status;
+@override final  int messageCount;
+@override final  DateTime? lastMessageAt;
+@override final  DateTime createdAt;
 
-  /// Create a copy of ConversationModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$ConversationModelCopyWith<_ConversationModel> get copyWith =>
-      __$ConversationModelCopyWithImpl<_ConversationModel>(this, _$identity);
+/// Create a copy of ConversationModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ConversationModelCopyWith<_ConversationModel> get copyWith => __$ConversationModelCopyWithImpl<_ConversationModel>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$ConversationModelToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$ConversationModelToJson(this, );
+}
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _ConversationModel &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.agentType, agentType) ||
-                other.agentType == agentType) &&
-            (identical(other.personaId, personaId) ||
-                other.personaId == personaId) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.messageCount, messageCount) ||
-                other.messageCount == messageCount) &&
-            (identical(other.lastMessageAt, lastMessageAt) ||
-                other.lastMessageAt == lastMessageAt) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConversationModel&&(identical(other.id, id) || other.id == id)&&(identical(other.agentType, agentType) || other.agentType == agentType)&&(identical(other.personaId, personaId) || other.personaId == personaId)&&(identical(other.title, title) || other.title == title)&&(identical(other.status, status) || other.status == status)&&(identical(other.messageCount, messageCount) || other.messageCount == messageCount)&&(identical(other.lastMessageAt, lastMessageAt) || other.lastMessageAt == lastMessageAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, agentType, personaId, title,
-      status, messageCount, lastMessageAt, createdAt);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,agentType,personaId,title,status,messageCount,lastMessageAt,createdAt);
 
-  @override
-  String toString() {
-    return 'ConversationModel(id: $id, agentType: $agentType, personaId: $personaId, title: $title, status: $status, messageCount: $messageCount, lastMessageAt: $lastMessageAt, createdAt: $createdAt)';
-  }
+@override
+String toString() {
+  return 'ConversationModel(id: $id, agentType: $agentType, personaId: $personaId, title: $title, status: $status, messageCount: $messageCount, lastMessageAt: $lastMessageAt, createdAt: $createdAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$ConversationModelCopyWith<$Res>
-    implements $ConversationModelCopyWith<$Res> {
-  factory _$ConversationModelCopyWith(
-          _ConversationModel value, $Res Function(_ConversationModel) _then) =
-      __$ConversationModelCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {String id,
-      String agentType,
-      String? personaId,
-      String? title,
-      String status,
-      int messageCount,
-      DateTime? lastMessageAt,
-      DateTime createdAt});
-}
+abstract mixin class _$ConversationModelCopyWith<$Res> implements $ConversationModelCopyWith<$Res> {
+  factory _$ConversationModelCopyWith(_ConversationModel value, $Res Function(_ConversationModel) _then) = __$ConversationModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String agentType, String? personaId, String? title, String status, int messageCount, DateTime? lastMessageAt, DateTime createdAt
+});
 
+
+
+
+}
 /// @nodoc
 class __$ConversationModelCopyWithImpl<$Res>
     implements _$ConversationModelCopyWith<$Res> {
@@ -454,55 +276,23 @@ class __$ConversationModelCopyWithImpl<$Res>
   final _ConversationModel _self;
   final $Res Function(_ConversationModel) _then;
 
-  /// Create a copy of ConversationModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? id = null,
-    Object? agentType = null,
-    Object? personaId = freezed,
-    Object? title = freezed,
-    Object? status = null,
-    Object? messageCount = null,
-    Object? lastMessageAt = freezed,
-    Object? createdAt = null,
-  }) {
-    return _then(_ConversationModel(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      agentType: null == agentType
-          ? _self.agentType
-          : agentType // ignore: cast_nullable_to_non_nullable
-              as String,
-      personaId: freezed == personaId
-          ? _self.personaId
-          : personaId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      messageCount: null == messageCount
-          ? _self.messageCount
-          : messageCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      lastMessageAt: freezed == lastMessageAt
-          ? _self.lastMessageAt
-          : lastMessageAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      createdAt: null == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
-  }
+/// Create a copy of ConversationModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? agentType = null,Object? personaId = freezed,Object? title = freezed,Object? status = null,Object? messageCount = null,Object? lastMessageAt = freezed,Object? createdAt = null,}) {
+  return _then(_ConversationModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,agentType: null == agentType ? _self.agentType : agentType // ignore: cast_nullable_to_non_nullable
+as String,personaId: freezed == personaId ? _self.personaId : personaId // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,messageCount: null == messageCount ? _self.messageCount : messageCount // ignore: cast_nullable_to_non_nullable
+as int,lastMessageAt: freezed == lastMessageAt ? _self.lastMessageAt : lastMessageAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
 }
 
 // dart format on

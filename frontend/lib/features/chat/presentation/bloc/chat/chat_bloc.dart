@@ -28,8 +28,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       leaveChat: () => _onLeaveChat(emit),
       sendMessage: (content) => _onSendMessage(content, emit),
       loadMoreMessages: () => _onLoadMoreMessages(emit),
-      wsMessageReceived: (message) => _onWsMessageReceived(message, emit),
-      wsConnectionChanged: (connected) =>
+      wsMessageReceived: (message) async => _onWsMessageReceived(message, emit),
+      wsConnectionChanged: (connected) async =>
           emit(state.copyWith(wsConnected: connected)),
     );
   }

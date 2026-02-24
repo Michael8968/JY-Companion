@@ -33,7 +33,7 @@ class AppTheme {
         titleTextStyle: AppTypography.textTheme.titleLarge,
         surfaceTintColor: Colors.transparent,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: AppSpacing.borderRadiusMd,

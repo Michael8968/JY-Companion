@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'persona.freezed.dart';
 
 @freezed
-class Persona with _$Persona {
+abstract class Persona with _$Persona {
   const factory Persona({
     required String id,
     required String name,

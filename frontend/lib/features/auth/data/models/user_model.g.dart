@@ -7,20 +7,20 @@ part of 'user_model.dart';
 // **************************************************************************
 
 _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
-      id: json['id'] as String,
-      username: json['username'] as String,
-      displayName: json['display_name'] as String,
-      role: json['role'] as String,
-      email: json['email'] as String?,
-      avatarUrl: json['avatar_url'] as String?,
-      grade: json['grade'] as String?,
-      className: json['class_name'] as String?,
-      studentId: json['student_id'] as String?,
-      lastLoginAt: json['last_login_at'] == null
-          ? null
-          : DateTime.parse(json['last_login_at'] as String),
-      createdAt: DateTime.parse(json['created_at'] as String),
-    );
+  id: json['id'] as String,
+  username: json['username'] as String,
+  displayName: json['display_name'] as String,
+  role: json['role'] as String,
+  email: json['email'] as String?,
+  avatarUrl: json['avatar_url'] as String?,
+  grade: json['grade'] as String?,
+  className: json['class_name'] as String?,
+  studentId: json['student_id'] as String?,
+  lastLoginAt: json['last_login_at'] == null
+      ? null
+      : DateTime.parse(json['last_login_at'] as String),
+  createdAt: DateTime.parse(json['created_at'] as String),
+);
 
 Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
     <String, dynamic>{
