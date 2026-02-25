@@ -7,6 +7,8 @@ import 'emotion_animator.dart';
 /// 使用 [TickerProvider] 驱动每帧插值，将 Rive 状态机中的 Number 输入从当前值平滑过渡到目标值，
 /// 满足「流畅度 ≥90%」的过渡效果。
 ///
+/// 性能：仅更新 Rive 状态机输入，不触发 Widget 树 rebuild，利于保持 ≥30fps。
+///
 /// 用法：在拥有 [TickerProvider] 的 [State] 中创建 [EmotionSmoothDriver]，
 /// 在 [initState] 中创建，在 [dispose] 中调用 [dispose]；情感变化时调用 [setTargetEmotion]。
 class EmotionSmoothDriver {

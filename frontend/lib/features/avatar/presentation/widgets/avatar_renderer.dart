@@ -79,13 +79,16 @@ class _AvatarRendererState extends State<AvatarRenderer> {
     );
   }
 
+  /// 使用 [RepaintBoundary] 隔离 Rive 重绘，避免影响父组件，利于移动端保持 ≥30fps。
   Widget _onLoaded(RiveLoaded state) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.onControllerReady?.call(state.controller);
     });
-    return RiveWidget(
-      controller: state.controller,
-      fit: widget.fit,
+    return RepaintBoundary(
+      child: RiveWidget(
+        controller: state.controller,
+        fit: widget.fit,
+      ),
     );
   }
 

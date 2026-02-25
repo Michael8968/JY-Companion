@@ -117,10 +117,11 @@ class _BreathingGuideWidgetState extends State<BreathingGuideWidget>
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 32),
-          AnimatedBuilder(
-            animation: _scaleAnimation,
-            builder: (context, child) {
-              return Container(
+          RepaintBoundary(
+            child: AnimatedBuilder(
+              animation: _scaleAnimation,
+              builder: (context, child) {
+                return Container(
                 width: 160 + _scaleAnimation.value * 40,
                 height: 160 + _scaleAnimation.value * 40,
                 decoration: BoxDecoration(
@@ -140,6 +141,7 @@ class _BreathingGuideWidgetState extends State<BreathingGuideWidget>
                 ),
               );
             },
+            ),
           ),
           const SizedBox(height: 24),
           Text(
