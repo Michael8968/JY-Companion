@@ -2,6 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:jy_companion/core/network/token_manager.dart';
+import 'package:jy_companion/features/admin/domain/usecases/get_alerts_usecase.dart';
+import 'package:jy_companion/features/admin/domain/usecases/get_platform_stats_usecase.dart';
+import 'package:jy_companion/features/admin/domain/usecases/get_users_usecase.dart';
+import 'package:jy_companion/features/admin/domain/usecases/resolve_alert_usecase.dart';
+import 'package:jy_companion/features/admin/domain/usecases/update_user_status_usecase.dart';
 import 'package:jy_companion/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:jy_companion/features/auth/domain/repositories/auth_repository.dart';
 import 'package:jy_companion/features/auth/domain/usecases/get_current_user_usecase.dart';
@@ -64,3 +69,16 @@ class MockListPersonasUseCase extends Mock implements ListPersonasUseCase {}
 class MockBindPersonaUseCase extends Mock implements BindPersonaUseCase {}
 
 class MockListBindingsUseCase extends Mock implements ListBindingsUseCase {}
+
+// Admin mocks
+class MockGetPlatformStatsUseCase extends Mock
+    implements GetPlatformStatsUseCase {}
+
+class MockGetAdminUsersUseCase extends Mock implements GetAdminUsersUseCase {}
+
+class MockUpdateUserStatusUseCase extends Mock
+    implements UpdateUserStatusUseCase {}
+
+class MockGetAlertsUseCase extends Mock implements GetAlertsUseCase {}
+
+class MockResolveAlertUseCase extends Mock implements ResolveAlertUseCase {}

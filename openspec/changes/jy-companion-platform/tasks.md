@@ -3,11 +3,11 @@
 ### 1. Sprint 1 — 项目初始化与基础架构 (第1-2周)
 
 - [x] 1.1 创建 Monorepo 目录结构、`.gitignore`、`Makefile`、`.editorconfig`
-- [ ] 1.2 Flutter 项目初始化 (`flutter create`)，配置 BLoC / go_router / dio / get_it
+- [x] 1.2 Flutter 项目初始化 (`flutter create`)，配置 BLoC / go_router / dio / get_it
 - [x] 1.3 FastAPI 项目初始化，创建 `pyproject.toml`(uv)、目录结构、`main.py`
 - [x] 1.4 编写 `docker-compose.yml` (PostgreSQL + Redis + Milvus + Neo4j + MinIO)
 - [x] 1.5 配置 GitHub Actions CI Pipeline (backend lint+test, frontend lint+test+build)
-- [ ] 1.6 UI 设计系统：色彩规范、字体规范、基础组件库（Figma）
+- [x] 1.6 UI 设计系统：色彩规范、字体规范、基础组件库（Figma）
 - [x] 1.7 数据库 Schema 初版 ER 设计文档
 - [ ] 1.8 AI 服务 GPU 环境搭建与配置
 
@@ -19,8 +19,8 @@
 - [x] 2.2 实现 OAuth2 + JWT 认证 API (`POST /api/v1/auth/login`, `/register`, `/refresh`)
 - [x] 2.3 实现 RBAC 权限中间件（student / teacher / parent / admin 四角色）
 - [x] 2.4 实现 API 限流中间件（slowapi: 100/min学生, 500/min教师）
-- [ ] 2.5 Flutter 登录/注册 UI + Auth BLoC 状态管理
-- [ ] 2.6 Flutter 网络层封装（dio 拦截器、JWT 自动刷新、错误处理）
+- [x] 2.5 Flutter 登录/注册 UI + Auth BLoC 状态管理
+- [x] 2.6 Flutter 网络层封装（dio 拦截器、JWT 自动刷新、错误处理）
 - [x] 2.7 实现 Conversation / Message 数据库模型
 - [ ] 2.8 InnoSpark 1.0 模型加载测试、推理基准性能报告
 - [ ] 2.9 教育语料收集与整理（高中各学科）
@@ -33,8 +33,8 @@
 - [x] 3.2 实现 ChatService：上下文管理、历史消息加载、流式输出
 - [x] 3.3 部署 vLLM 推理服务，封装 LLM API 调用层
 - [x] 3.4 设计基础 Prompt 模板框架（System Prompt + 人设注入占位）
-- [ ] 3.5 Flutter 对话 UI：聊天气泡、流式文本渲染(StreamBuilder)、消息列表
-- [ ] 3.6 Flutter WebSocket 客户端 + 消息 BLoC 状态管理
+- [x] 3.5 Flutter 对话 UI：聊天气泡、流式文本渲染(StreamBuilder)、消息列表
+- [x] 3.6 Flutter WebSocket 客户端 + 消息 BLoC 状态管理
 - [x] 3.7 实现内容安全过滤基础版（关键词库 + 基础分类器）
 - [x] 3.8 搭建 pytest 测试框架（conftest.py、fixtures、test DB）
 
@@ -64,7 +64,7 @@
 - [x] 5.3 实现错因诊断分析逻辑 `services/academic_service.py`
 - [x] 5.4 实现举一反三练习推荐（动态题库筛选 + 难度自适应）
 - [x] 5.5 部署 PaddleOCR 服务 `ai_services/multimodal/ocr_service.py`
-- [ ] 5.6 Flutter 学业辅导页面：题目输入(文本+拍照OCR)、分步解答、错题本
+- [x] 5.6 Flutter 学业辅导页面：题目输入(文本+拍照OCR)、分步解答、错题本
 - [x] 5.7 实现 LearningRecord / ErrorRecord 数据模型 + CRUD API
 - [ ] 5.8 扩充知识库（语文、英语学科）
 - [x] 5.9 学业辅导模块单元测试 + 集成测试（覆盖率 ≥80%）
@@ -75,7 +75,7 @@
 - [x] 6.2 实现 `agents/classroom_agent.py` 课堂录音转写 + 结构化摘要
 - [x] 6.3 实现个性化学案生成逻辑（用户画像 + 知识图谱匹配）
 - [x] 6.4 实现疑问点自动识别算法（语速分析 + 重复讲解检测）
-- [ ] 6.5 Flutter 课堂复盘页面：录音上传、摘要展示（大纲/图表双视图）、学案查看
+- [x] 6.5 Flutter 课堂复盘页面：录音上传、摘要展示（大纲/图表双视图）、学案查看
 - [x] 6.6 实现用户画像数据模型 + 动态更新服务
 - [x] 6.7 集成 MinIO 对象存储（音频/文档上传下载）
 - [ ] 6.8 500 并发性能压测（Locust/k6）
@@ -89,7 +89,7 @@
 - [x] 7.3 **[CRITICAL] 实现危机预警系统：高风险关键词库 + 阈值监测 + 前置同步检查**
 - [x] 7.4 **[CRITICAL] 实现危机告警即时推送（Redis Pub/Sub → 教师/家长/心理专员）**
 - [x] 7.5 构建积极心理学干预策略库（≥50 条标准化策略）
-- [ ] 7.6 Flutter 情感陪伴页面：情绪日记、呼吸练习引导、放松动画、情绪趋势图
+- [x] 7.6 Flutter 情感陪伴页面：情绪日记、呼吸练习引导、放松动画、情绪趋势图
 - [x] 7.7 实现 EmotionRecord / CrisisAlert 数据模型 + API
 - [x] 7.8 **[CRITICAL] 危机预警端到端测试：验证 ≤30s 响应、100% 召回率**
 
@@ -99,9 +99,9 @@
 - [x] 8.2 实现健康提醒推送（Celery 定时任务 + 推送通知）
 - [x] 8.3 实现 `agents/creative_agent.py` AIGC 文本 + 图像生成
 - [x] 8.4 实现 `agents/career_agent.py` SMART 目标管理 + 学习路径推荐
-- [ ] 8.5 Flutter 健康守护页面：屏幕时间统计、运动计划、提醒配置
-- [ ] 8.6 Flutter 创意创作页面：创意生成、作品评价、作品库
-- [ ] 8.7 Flutter 生涯规划页面：目标管理、甘特图、进度报告
+- [x] 8.5 Flutter 健康守护页面：屏幕时间统计、运动计划、提醒配置
+- [x] 8.6 Flutter 创意创作页面：创意生成、作品评价、作品库
+- [x] 8.7 Flutter 生涯规划页面：目标管理、甘特图、进度报告
 - [x] 8.8 部署 CosyVoice TTS 语音合成服务
 - [x] 8.9 六大智能体全集成测试
 
@@ -118,16 +118,16 @@
 - [x] 9.3 实现人设记忆图谱 `persona/memory_graph.py`（跨会话一致性维护）
 - [x] 9.4 实现学伴社区群管理 API（多角色绑定/切换，≥5 个学伴）
 - [ ] 9.5 设计 2-3 个预设学伴数字形象（Rive 动画资源）
-- [ ] 9.6 Flutter 数字形象渲染器 `features/avatar/avatar_renderer.dart`（Rive 集成）
-- [ ] 9.7 实现情感-动画映射驱动 `features/avatar/emotion_animator.dart`
+- [x] 9.6 Flutter 数字形象渲染器 `features/avatar/avatar_renderer.dart`（Rive 集成）
+- [x] 9.7 实现情感-动画映射驱动 `features/avatar/emotion_animator.dart`
 - [x] 9.8 人格一致性测试：跨 10 轮对话一致率 ≥90%
 
 ### 10. Sprint 10 — 多模态交互完善 + 情感表达 (第19-20周)
 
 - [x] 10.1 实现语音对话完整链路：录音 → ASR → LLM → TTS → 播放
-- [ ] 10.2 实现口型同步（TTS 音频 → Rive 面部动画驱动，误差 ≤100ms）
+- [x] 10.2 实现口型同步（TTS 音频 → Rive 面部动画驱动，误差 ≤100ms）
 - [x] 10.3 构建情感表达映射规则库（≥100 条情感→语音/动画映射）
-- [ ] 10.4 实现情感状态平滑过渡（状态机 + 插值算法，流畅度 ≥90%）
+- [x] 10.4 实现情感状态平滑过渡（状态机 + 插值算法，流畅度 ≥90%）
 - [ ] 10.5 前端动画性能优化（移动端渲染帧率 ≥30fps）
 - [x] 10.6 优化多通道情感融合算法（融合准确率 > 单模态 +8%）
 - [ ] 10.7 全平台 UI 适配测试（iOS/Android/Desktop 一致性 ≥95%）
@@ -147,7 +147,7 @@
 - [x] 11.4 实施 TLS 1.3 + AES-256/SM4 全链路加密
 - [x] 11.5 实现数据脱敏规则引擎（掩码/泛化/哈希多策略）
 - [x] 11.6 实现管理后台 API（用户管理、数据统计、内容审核、预警处理）
-- [ ] 11.7 实现管理后台前端界面
+- [x] 11.7 实现管理后台前端界面
 - [x] 11.8 升级内容安全分类器（违规拦截率 ≥99%）
 - [ ] 11.9 等保 2.0 三级自检清单核对
 - [ ] 11.10 全量安全渗透测试（OWASP Top 10）

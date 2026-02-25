@@ -101,11 +101,14 @@ class TestAuthSystemSpec:
         assert callable(hash_password)
         assert callable(verify_password)
 
-    # WHEN pwd_context configured
-    # THEN bcrypt scheme is used
+    # WHEN password is hashed
+    # THEN bcrypt is used (hash format and verify round-trip)
     def test_password_context_uses_bcrypt(self) -> None:
-        from app.core.security import pwd_context
-        assert "bcrypt" in pwd_context.schemes()
+        from app.core.security import hash_password, verify_password
+        hashed = hash_password("test_password")
+        assert hashed.startswith("$2")
+        assert verify_password("test_password", hashed) is True
+        assert verify_password("wrong", hashed) is False
 
     # WHEN SSO CAS callback received
     # THEN SSOProvider generates correct CAS login URL

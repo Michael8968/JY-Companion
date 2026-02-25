@@ -87,8 +87,10 @@ class ApiConstants {
 
   // Admin
   static const String adminUsers = '/admin/users';
+  static String adminUserStatus(String id) => '/admin/users/$id/status';
   static const String adminStats = '/admin/stats';
   static const String adminAlerts = '/admin/alerts';
+  static String adminAlertResolve(String id) => '/admin/alerts/$id/resolve';
 
   // System
   static const String health = '/health';

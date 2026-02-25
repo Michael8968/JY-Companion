@@ -28,7 +28,31 @@ class QuickActionGrid extends StatelessWidget {
   }
 
   void _onActionTap(BuildContext context, String agentType) {
-    // Navigate to conversations page, creating a new conversation will be handled there
+    if (agentType == 'academic') {
+      context.go('/home/academic');
+      return;
+    }
+    if (agentType == 'classroom') {
+      context.go('/home/classroom');
+      return;
+    }
+    if (agentType == 'emotional') {
+      context.go('/home/emotional');
+      return;
+    }
+    if (agentType == 'health') {
+      context.go('/home/health');
+      return;
+    }
+    if (agentType == 'creative') {
+      context.go('/home/creative');
+      return;
+    }
+    if (agentType == 'career') {
+      context.go('/home/career');
+      return;
+    }
+    // Other types: open conversations list
     context.go('/home/conversations');
   }
 }

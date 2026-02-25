@@ -1,0 +1,6 @@
+# 当本机 5432 被占用时使用：docker compose -f docker-compose.yml -f docker-compose.port5433.yml up -d postgres
+# 并修改 backend/.env：DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5433/jy_companion
+services:
+  postgres:
+    ports:
+      - "5433:5432"

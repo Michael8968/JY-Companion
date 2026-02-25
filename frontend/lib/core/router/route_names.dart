@@ -9,4 +9,13 @@ class RouteNames {
   static const String personas = 'personas';
   static const String profile = 'profile';
   static const String chat = 'chat';
+  static const String academic = 'academic';
+  static const String errorBook = 'error-book';
+  static const String classroom = 'classroom';
+  static const String sessionDetail = 'session-detail';
+  static const String emotional = 'emotional';
+  static const String health = 'health';
+  static const String creative = 'creative';
+  static const String career = 'career';
+  static const String admin = 'admin';
 }

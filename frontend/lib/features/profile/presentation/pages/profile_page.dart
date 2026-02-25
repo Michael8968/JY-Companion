@@ -83,38 +83,56 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildSettingsList(BuildContext context) {
-    return Column(
-      children: [
-        _SettingsTile(
-          icon: Icons.person_outline,
-          title: '账号信息',
-          onTap: () {
-            // TODO: Navigate to account info
-          },
-        ),
-        _SettingsTile(
-          icon: Icons.info_outline,
-          title: '关于',
-          onTap: () {
-            showAboutDialog(
-              context: context,
-              applicationName: '星澜学伴',
-              applicationVersion: '0.1.0',
-              children: [
-                const Text('AI 智能学习伙伴'),
-                const Text('星澜中学出品'),
-              ],
-            );
-          },
-        ),
-        const SizedBox(height: 16),
-        _SettingsTile(
-          icon: Icons.logout,
-          title: '退出登录',
-          textColor: AppColors.error,
-          onTap: () => _confirmLogout(context),
-        ),
-      ],
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        final user = state.maybeWhen(
+          authenticated: (user) => user,
+          orElse: () => null,
+        );
+        final isAdmin = user?.role == 'admin';
+
+        return Column(
+          children: [
+            if (isAdmin) ...[
+              _SettingsTile(
+                icon: Icons.admin_panel_settings_outlined,
+                title: '管理后台',
+                onTap: () => context.go('/home/admin'),
+              ),
+              const SizedBox(height: 8),
+            ],
+            _SettingsTile(
+              icon: Icons.person_outline,
+              title: '账号信息',
+              onTap: () {
+                // TODO: Navigate to account info
+              },
+            ),
+            _SettingsTile(
+              icon: Icons.info_outline,
+              title: '关于',
+              onTap: () {
+                showAboutDialog(
+                  context: context,
+                  applicationName: '星澜学伴',
+                  applicationVersion: '0.1.0',
+                  children: [
+                    const Text('AI 智能学习伙伴'),
+                    const Text('星澜中学出品'),
+                  ],
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            _SettingsTile(
+              icon: Icons.logout,
+              title: '退出登录',
+              textColor: AppColors.error,
+              onTap: () => _confirmLogout(context),
+            ),
+          ],
+        );
+      },
     );
   }
 
