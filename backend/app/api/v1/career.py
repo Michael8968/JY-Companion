@@ -124,8 +124,10 @@ async def get_progress_reports(
     user_id: str = Depends(get_current_user_id),
     db: AsyncSession = Depends(get_db_session),
 ) -> list[ProgressReportResponse]:
-    """Get progress reports (placeholder — returns empty until reports are generated)."""
-    return []
+    """Get user's progress reports ordered by most recent."""
+    service = CareerService(db)
+    reports = await service.get_progress_reports(uuid.UUID(user_id))
+    return [ProgressReportResponse.model_validate(r) for r in reports]
 
 
 @router.post("/progress-report", response_model=ProgressReportResponse)

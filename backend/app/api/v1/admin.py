@@ -1,6 +1,7 @@
 """Admin management API — user management, statistics, content audit, alerts."""
 
 import uuid
+from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy import func, select
@@ -99,9 +100,19 @@ async def get_platform_stats(
         )
     ).scalar() or 0
 
+    # Count users who logged in today
+    today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    active_today = (
+        await db.execute(
+            select(func.count())
+            .select_from(User)
+            .where(User.last_login_at >= today_start)
+        )
+    ).scalar() or 0
+
     return PlatformStatsResponse(
         total_users=total_users,
-        active_users_today=0,  # Requires session tracking — placeholder
+        active_users_today=active_today,
         total_conversations=total_convs,
         total_messages=total_msgs,
         active_crisis_alerts=active_alerts,

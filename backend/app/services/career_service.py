@@ -226,6 +226,19 @@ class CareerService:
 
     # ── Progress Reports ──
 
+    async def get_progress_reports(
+        self,
+        user_id: uuid.UUID,
+    ) -> list[ProgressReport]:
+        """Get user's progress reports ordered by most recent."""
+        stmt = (
+            select(ProgressReport)
+            .where(ProgressReport.user_id == user_id)
+            .order_by(ProgressReport.created_at.desc())
+        )
+        result = await self._db.execute(stmt)
+        return list(result.scalars().all())
+
     async def generate_progress_report(
         self,
         user_id: uuid.UUID,

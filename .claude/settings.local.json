@@ -18,7 +18,15 @@
       "Bash(flutter test)",
       "Bash(while read f)",
       "Bash(do sed -i 's/^class \\\\\\([a-zA-Z]*\\\\\\) with _\\\\$/abstract class \\\\1 with _\\\\$/' \"$f\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(PYTHONUTF8=1 PYTHONIOENCODING=utf-8 uv run python -c \":*)",
+      "Bash(docker exec jy-postgres psql -U postgres -d jy_companion -c \"SELECT current_database\\(\\), current_user, version\\(\\);\")",
+      "Bash(grep -n \"@router\\\\.\" /c/Users/winca/Documents/GitHub/JY-Companion/backend/app/api/v1/*.py)",
+      "Bash(docker exec jy-postgres cat /var/lib/postgresql/data/pg_hba.conf)",
+      "Bash(docker exec jy-postgres sh -c \"psql -U postgres -c \"\"SHOW lc_messages; SHOW server_encoding; SHOW client_encoding;\"\"\")",
+      "Bash(find /c/Users/winca/Documents/GitHub/JY-Companion/backend/app -name \"*.py\" -exec grep -l \"prometheus\\\\|metrics\\\\|Instrumentator\" {} ;)",
+      "Bash(netstat -ano)",
+      "Bash(docker compose run --rm migrate)"
     ]
   }
 }

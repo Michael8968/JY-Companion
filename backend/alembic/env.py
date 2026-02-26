@@ -68,6 +68,7 @@ def run_migrations_online_sync() -> None:
     connectable = create_engine(
         _sync_url(),
         poolclass=pool.NullPool,
+        connect_args={"client_encoding": "utf8"},
     )
     with connectable.connect() as connection:
         do_run_migrations(connection)
