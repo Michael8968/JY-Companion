@@ -26,7 +26,8 @@
       "Bash(docker exec jy-postgres sh -c \"psql -U postgres -c \"\"SHOW lc_messages; SHOW server_encoding; SHOW client_encoding;\"\"\")",
       "Bash(find /c/Users/winca/Documents/GitHub/JY-Companion/backend/app -name \"*.py\" -exec grep -l \"prometheus\\\\|metrics\\\\|Instrumentator\" {} ;)",
       "Bash(netstat -ano)",
-      "Bash(docker compose run --rm migrate)"
+      "Bash(docker compose run --rm migrate)",
+      "WebFetch(domain:rive.app)"
     ]
   }
 }
