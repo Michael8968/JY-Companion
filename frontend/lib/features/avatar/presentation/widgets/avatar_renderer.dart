@@ -52,7 +52,19 @@ class _AvatarRendererState extends State<AvatarRenderer> {
     super.dispose();
   }
 
-  Controller _buildController(File file) {
+  static Fit _boxFitToRiveFit(BoxFit boxFit) {
+    return switch (boxFit) {
+      BoxFit.fill => Fit.fill,
+      BoxFit.contain => Fit.contain,
+      BoxFit.cover => Fit.cover,
+      BoxFit.fitWidth => Fit.fitWidth,
+      BoxFit.fitHeight => Fit.fitHeight,
+      BoxFit.none => Fit.none,
+      BoxFit.scaleDown => Fit.scaleDown,
+    };
+  }
+
+  RiveWidgetController _buildController(File file) {
     return RiveWidgetController(
       file,
       artboardSelector: widget.artboardName != null
@@ -87,7 +99,7 @@ class _AvatarRendererState extends State<AvatarRenderer> {
     return RepaintBoundary(
       child: RiveWidget(
         controller: state.controller,
-        fit: widget.fit,
+        fit: _boxFitToRiveFit(widget.fit),
       ),
     );
   }
